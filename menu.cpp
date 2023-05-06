@@ -27,6 +27,8 @@ int main()
 			break;
 		case '3':
 			//ADMINISRADOR
+			system("CLS");
+			Admin();
 			break;
 		default :
 			cout<<"Error,Intente denuevo."<<endl;
