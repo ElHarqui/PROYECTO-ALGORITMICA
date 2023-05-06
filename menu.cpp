@@ -22,6 +22,8 @@ int main()
 			break;
 		case '2':
 			//USUARIO EXISTENTE
+			system("CLS");
+			LoginUsu();
 			break;
 		case '3':
 			//ADMINISRADOR
@@ -32,8 +34,8 @@ int main()
 			system("CLS");
 	
 	}
-	cout<<SelecMenu1;
-	cout<<SelecMenu1;
+	cout<<SelecMenu1<<endl;
+	cout<<SelecMenu1<<endl;
 //MENU 2
 	
 	system("color 52");

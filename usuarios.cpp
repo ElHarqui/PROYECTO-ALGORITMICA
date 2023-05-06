@@ -6,6 +6,7 @@
 */
 using namespace std;
 static void NuevoUsuario(void);
+static void LoginUsu(void);
 /*
 main()
 {
@@ -27,4 +28,18 @@ static void NuevoUsuario(void){
 	cout<<"Registrado Correctamente";
 	UsuariosText<<NewUsu<<";"<<NewContra<<endl;
 	UsuariosText.close();
+}
+static void LoginUsu(void){
+	string usu, contra;
+	char delimit = ';';
+	ifstream UsuariosText;
+	UsuariosText.open("Usuarios.csv",ios::in);//ABRIENDO BASE DE DATOS// PARA LEER USUARIOS
+	if (!UsuariosText.is_open())
+	{
+	    cout << "Error al abrir ejemplo.dat\n";
+		exit(1);
+	}
+	cout<<"\t\t\tINICIE SESION\n";
+	cout<<"Usuario: ";cin>>usu;
+	cout<<"Contraseña: ";cin>>contra;
 }
