@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include "usuarios.cpp"
 using namespace std;
 
 /*string solve( string s );*/
@@ -10,12 +11,14 @@ int main()
 {
 /////MENU 1
 	char SelecMenu1,la;
-	cout<<"\t\tMENU\n1.-Nuevo Usuario\n2.- Usuario Existente\n3.- Administrador "<<endl;
+	cout<<"\t\tMENU\n1.- Nuevo Usuario\n2.- Usuario Existente\n3.- Administrador "<<endl;
 	cin>>SelecMenu1;
 	switch(SelecMenu1)
 	{
 		case '1':
 			//NUEVO USUARIO
+			system("CLS");
+			NuevoUsuario();
 			break;
 		case '2':
 			//USUARIO EXISTENTE
