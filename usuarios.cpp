@@ -136,13 +136,20 @@ static void LoginUsu(void)
 		}
 		else if(logusu == usuario[i].nombre && logcontra != usuario[i].contra)
 		{
-			cout<<"contraseña incorrecta"<<endl;
+			cout<<"contraseña incorrecta. Intente denuevo"<<endl;
+			LogExist = 2;
 			break;
 		}
 	}
+	if (LogExist == 0)
+	{
+		cout<<"Usuario no existe. Intente denuevo"<<endl;
+	}
 	if (LogExist != 1)
 	{
-		cout<<"Usuario no existe"<<endl;
+		system("pause");
+		system("CLS");
+		LoginUsu();
 	}
 }
 void Menu()
