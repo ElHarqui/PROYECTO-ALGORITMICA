@@ -11,7 +11,7 @@ int main()
 {
 /////MENU 1
 	char SelecMenu1,la;
-	cout<<"\t\tMENU\n1.- Nuevo Usuario\n2.- Usuario Existente\n3.- Administrador "<<endl;
+	cout<<"\t\tMENU\n1.- Crear Usuario\n2.- Iniciar sesion\n\n\3.- Salir"<<endl;
 	cin>>SelecMenu1;
 	switch(SelecMenu1)
 	{
@@ -24,11 +24,6 @@ int main()
 			//USUARIO EXISTENTE
 			system("CLS");
 			LoginUsu();
-			break;
-		case '3':
-			//ADMINISRADOR
-			system("CLS");
-			Admin();
 			break;
 		default :
 			cout<<"Error,Intente denuevo."<<endl;

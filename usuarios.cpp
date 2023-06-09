@@ -9,18 +9,17 @@
 using namespace std;
 static void NuevoUsuario(void);
 static void LoginUsu(void);
-static void Admin(void);
-/*main()
-{
+#ifdef InSingleFileTest
+int main(){
 	LoginUsu();
 	return 0;
-}
-*/
+};
+#endif
 static void NuevoUsuario(void)
 {
 	string NewUsu,NewContra;
 	ofstream UsuariosText;
-	UsuariosText.open("Usuarios.csv",ios::app);//ABRIENDO  BASE DE DATOS// PARA GUARDAR NUEVO USUARIO;
+	UsuariosText.open("Usuarios.csv",ios::app);//ABRIENDO  BASE DE DATOS// PARA GUARDAR NUEVO USUARIO AL FINAL DE LA LISTA;
 	if(UsuariosText.fail()){
 		cout<<"ERROR,el archivo no se pudo crear";
 		exit(1);
@@ -32,6 +31,7 @@ static void NuevoUsuario(void)
 	UsuariosText<<NewUsu<<";"<<NewContra<<endl;
 	UsuariosText.close();
 }
+/////////////////////////////////////////////////////
 static void LoginUsu(void)
 {
 	string usu, contra, linea, lol;
@@ -68,15 +68,20 @@ static void LoginUsu(void)
 		if(usu == Usuario && contra == Contrasena)
 		{
 			cout<<"Inicio sesion correctamente"<<endl;
+			if (usu == "ADMIN"|| contra == "admin")
+			{
+				//
+				//Mostrar TIENDA DE ADMINISTRADOR
+				//
+				//
+				//
+				//
+			} 
 		}else if(usu == Usuario || contra == Contrasena)
 		{
 			cout<<"Usuario o contraseña incorrecto"<<endl;
 		}
 	}
-	cout<<"EL fin se acerca";
 	UsuariosText.close();	
 }
 
-static void Admin(void){
-	
-}
