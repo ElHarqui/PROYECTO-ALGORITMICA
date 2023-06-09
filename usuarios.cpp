@@ -98,7 +98,6 @@ static void NuevoUsuario(void)
 static void LoginUsu(void)
 {
 	CargarEstructuras(num_usu);
-	//cout<<usuario[1].nombre ;
 	string logusu, logcontra;
 	int LogExist = 0;
 	
@@ -174,6 +173,7 @@ void Menu()
 			cout<<"Error,Intente denuevo."<<endl;
 			system("pause");
 			system("CLS");
+			Menu();
 	
 	}
 
