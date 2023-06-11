@@ -2,6 +2,7 @@
 #include <sstream>
 #include <fstream>
 #include <string.h>
+#include "categorias.cpp"
 
 /*
 #ifndef usuarios_H
@@ -110,9 +111,12 @@ static void LoginUsu(void)
 		{
 			cout<<"Inicio sesion correctamente"<<endl;
 			LogExist = 1;
+			system("pause");
+			system("CLS");
 			if (usuario[i].tipo == "admin")
 			{
 				//
+				TiendaUsuario();
 				//Mostrar TIENDA DE ADMINISTRADOR()
 				//
 				//
@@ -125,7 +129,8 @@ static void LoginUsu(void)
 			{
 				//
 				//
-				//Mostrar TIENDA DE USUARIO()
+				TiendaUsuario();
+				//LISTO //Mostrar TIENDA DE USUARIO()
 				//
 				//
 				//

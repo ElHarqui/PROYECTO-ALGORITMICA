@@ -6,7 +6,8 @@
 #include "usuarios.cpp"
 
 using namespace std;
-main(){
+int main()
+{
 	Menu();
 }
 	
