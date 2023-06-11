@@ -21,7 +21,7 @@ struct Usuarios{
 }usuario[100];
 int num_usu;
 
-static void CargarEstructuras(int num_usu)
+static void CargarEstructuras(int &num_usu)
 {
 	num_usu = 0;
 	string linea;
@@ -51,7 +51,7 @@ static void CargarEstructuras(int num_usu)
 		num_usu++;
 	}
 	UsuariosText.close();
-	cout<<num_usu<<endl;
+	cout<<"N# Usuarios Existentes : "<<num_usu<<endl;
 	//cout<<"Cargando..."<<endl;
 	//
 }
@@ -72,8 +72,7 @@ static void NuevoUsuario(void)
 	}	
 	cout<<"\t\t\tREGISTRESE\n";
 	cout<<"Usuario: ";cin>>NewUsu;
-	cout<<"Contraseña: ";cin>>NewContra;
-	for (int i = 0 ; i == num_usu ; i++){
+		for (int i = 0 ; i < num_usu ; i++){
 		if( NewUsu == usuario[i].nombre)
 		{
 			RegExist = 1;
@@ -81,10 +80,16 @@ static void NuevoUsuario(void)
 		}
 	}
 
+	cout<<"Contraseña: ";cin>>NewContra;
+
+	//cout<<RegExist<<endl;
 	if (RegExist == 0){
 		cout<<"Registrado Correctamente";
 		UsuariosText<<NewUsu<<";"<<NewContra<<endl;
 		UsuariosText.close();
+		system("pause");
+		system("CLS");
+		Menu();
 	}
 	else{
 		cout<<"Usuario Ya existe. Intentelo denuevo"<<endl;
@@ -105,7 +110,7 @@ static void LoginUsu(void)
 	cout<<"\t\t\tINICIE SESION\n";//Tomando datos para posterior comprobacion de existencia
 	cout<<"Usuario: ";cin>>logusu;
 	cout<<"Contraseña: ";cin>>logcontra;
-	for (int i = 0 ; i ==num_usu; i++ )
+	for (int i = 0 ; i < num_usu; i++ )
 	{
 		if (logusu == usuario[i].nombre && logcontra == usuario[i].contra)
 		{
