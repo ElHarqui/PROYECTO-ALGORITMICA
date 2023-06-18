@@ -80,7 +80,6 @@ static void NuevoUsuario(void)
 		}
 	}
 
-	cout<<"Contraseña: ";cin>>NewContra;
 
 	//cout<<RegExist<<endl;
 	if (RegExist == 0){
@@ -98,6 +97,7 @@ static void NuevoUsuario(void)
 		system("CLS");
 		NuevoUsuario();
 	}
+	cout<<"Contraseña: ";cin>>NewContra;
 	
 }
 /////////////////////////////////////////////////////
