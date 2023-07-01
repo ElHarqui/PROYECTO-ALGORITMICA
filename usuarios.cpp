@@ -19,7 +19,9 @@ using namespace std;
 static void CargarEstructuras(void) ;
 static void NuevoUsuario(void);
 static void LoginUsu(void);
+static void menu2();
 static void Menu();
+
 
 int num_usu;
 
@@ -120,7 +122,7 @@ static void LoginUsu(void)
 			}
 			else
 			{
-				TiendaUsuario();
+				menu2();
 				break;
 			}
 		}
@@ -142,11 +144,55 @@ static void LoginUsu(void)
 		LoginUsu();
 	}
 }
+void menu2()
+{
+	int option;
+	cout << "\n--- Menu 2 ---\n";
+    cout << "1. Iniciar tienda\n2. Configuracion\n\n0. Cerrar sesion"<<endl;
+    cin >> option;
+
+    if (option == 1) {
+        cout << "\nIniciando tienda...\n";
+        system("pause");
+        system("CLS");
+        // Lógica para iniciar la tienda
+        TiendaUsuario();
+    } 
+	else if (option == 2) {
+        cout << "\n--- Configuración ---\n";
+        //cout << "Tipo de moneda actual: " << currencyType << endl;
+        cout << "Seleccione una opción:\n";
+        cout << "1. Cambiar a dólar\n";
+        cout << "2. Cambiar a soles\n";
+        cout << "0. Volver al menú principal\n";
+        cout << "Seleccione una opción: ";
+        cin >> option;
+
+        /*if (option == 1) {
+            updateCurrencyType("dólar");
+            cout << "\nTipo de moneda cambiado a dólar.\n";
+        } else if (option == 2) {
+            updateCurrencyType("soles");
+            cout << "\nTipo de moneda cambiado a soles.\n";
+        } else if (option == 0) {
+            Menu2(); // Vuelve al menú principal
+        } else {
+            cout << "\nOpción inválida.\n";
+        }*/
+    } else if (option == 0) {
+    	system("CLS");
+        Menu(); // Cierra sesión
+    } else {
+        cout << "\nOpción inválida.\n";
+        system("pause");
+        menu2();
+    }
+}
 void Menu()
 {
 	/////MENU 1
 	char SelecMenu1,la;
-	cout<<"\n\t\tMENU\n1.- Crear Usuario\n2.- Iniciar sesion\n\n 0.- Salir"<<endl;
+	cout<<"\n--- Menu 1 ---\n1.- Crear Usuario\n2.- Iniciar sesion\n\n 0.- Salir"<<endl;
 	cin>>SelecMenu1;
 	switch(SelecMenu1)
 	{
