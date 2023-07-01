@@ -3,26 +3,29 @@
 
 using namespace std;
 
-struct Product {
+struct Product
+{
     int stock;
     char accion[10];
     int cantidad;
     char nombre[30];
 } producto;
 
-struct VisualizacionCarrito {
+struct VisualizacionCarrito
+{
     float subtotal;
     float total;
     int carrito;
     float descuento;
 } carrito1;
 
-//Prototipos 
+// Prototipos
 int mostrarResumen(int stock, char accion[10], int cantidad, float subtotal, float total, float descuento);
 
-//principal
+// principal
 
-int main() {
+int main()
+{
     cout << "Ingrese los productos del carrito: ";
     cin >> carrito1.carrito;
 
@@ -39,38 +42,56 @@ int main() {
     return 0;
 }
 
-//subprograma
+// subprograma
 
-int mostrarResumen(int stock, char accion[10], int cantidad, float subtotal, float total, float descuento) {
-	
-	int menu;
-	
-	cout << "Desea continuar? 1.SI // 2. NO ";
-    cin>>menu;
-    
-    cout << "Ingrese el nombre del producto: ";
-    cin>>stock;
+int mostrarResumen(int stock, char accion[10], int cantidad, float subtotal, float total, float descuento)
+{
 
-    cout << "Desea agregar o quitar productos? ";
-    cin.getline(producto.accion,20);
+    int menu;
 
-    cout << "Ingrese la cantidad: ";
-    cin >> cantidad;
+    cout << "Desea continuar? 1.SI // 2. NO ";
+    cin >> menu;
 
-    if (accion == "agregar")  {
-        producto.stock += cantidad;
-        cout << "Se agregaron " << cantidad << " unidades del producto " << producto.nombre << " al carrito." << endl;
-    } else if (accion == "quitar"){
-        if (cantidad <= producto.stock) {
+    if (menu == 1)
+    {
+        cout << "Desea agregar o quitar productos? ";
+        cin.getline(producto.accion, 20);
+
+        if (producto.accion == "agregar")
+        {
+            cout << "Ingrese el nombre del producto: ";
+            cin >> producto.nombre;
+
+            cout << "Ingrese la cantidad: ";
+            cin >> cantidad;
+
+            producto.stock += cantidad;
+
+            cout << "Se agregaron " << cantidad << " unidades del producto " << producto.nombre << " al carrito." << endl;
+        }
+    else if (producto.accion == "quitar")
+    {
+        cout << "Ingrese el nombre del producto: ";
+        cin >> producto.nombre;
+
+        cout << "Ingrese la cantidad: ";
+        cin >> cantidad;
+
+        if (cantidad <= producto.stock)
+        {
             producto.stock -= cantidad;
             cout << "Se quitaron " << cantidad << " unidades del producto " << producto.nombre << " del carrito." << endl;
-        } else {
+        }
+        else
+        {
             cout << "No se pueden quitar " << cantidad << " unidades del producto " << producto.nombre << " del carrito. Stock insuficiente." << endl;
         }
-    } else {
-        cout << "Acción invalida." << endl;
+       
+       }
+    else
+    {
+        cout << "Acción inválida." << endl;
     }
-
     cout << "Resumen del Carrito" << endl;
     cout << endl;
     cout << "Carrito: " << carrito1.carrito << endl;
@@ -86,14 +107,24 @@ int mostrarResumen(int stock, char accion[10], int cantidad, float subtotal, flo
     cout << "Ingrese el monto con el que pagara: $";
     cin >> pago;
 
-    if (pago >= total) {
+    if (pago >= total)
+    {
         cambio = pago - total;
         cout << "Pago exitoso. Su cambio es de $" << cambio << endl;
-    } else {
+    }
+    else
+    {
         cout << "Monto insuficiente. Por favor, ingrese un monto igual o mayor al total." << endl;
     }
-    
-    return menu;
-    
+
 }
+else
+{
+
+    cout << "Hasta la proxima, sus productos quedaran guardados en el carrito";
+}
+
+return menu;
+}
+
 
