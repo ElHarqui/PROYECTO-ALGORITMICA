@@ -55,11 +55,9 @@ void guardarCategorias(Categoria* categorias, int tam)
         for (int j = 0; j < categoria.numProductos; ++j)
         {
             Producto& producto = categoria.productos[j];
-            archivo << categoria.nombre << ";" << producto.nombre << ";"
-                    << producto.precio << ";" << producto.stock <<endl;
+            archivo << categoria.nombre << ";" << producto.nombre << ";"<< producto.precio << ";" << producto.stock <<endl;
         }
     }
-
     archivo.close();
 }
 
@@ -84,8 +82,6 @@ void mostrarListaProductos(Producto* productos, int tam) // Recibe un arreglo de
     }
     cout << "\n";
 }
-
-
 
 void mostrarDetallesProducto( Producto& producto) 
 {
@@ -132,41 +128,28 @@ int IngreseCantidad()
     }
     return cantidad;
 }
-
-void procesarSeleccion(Categoria* categorias, int eleccionCategoria) 
+void procesarSeleccion(Categoria* categorias, int eleccionCategoria)
 {
-    if (eleccionCategoria>=1 && eleccionCategoria<=MAX_CATEGORIAS) // Verifica si la elección de categoría realizada por el usuario está dentro del rango válido.
-	{
-        Categoria& categoriaSeleccionada = categorias[eleccionCategoria - 1]; //Obtiene la categoría seleccionada por el usuario a partir del arreglo de categorías, utilizando el índice correspondiente.
-        cout << "CATEGORIA SELECCIONADA: " << categoriaSeleccionada.nombre << "\n\n";
+    Categoria& categoriaSeleccionada = categorias[eleccionCategoria - 1];
+    cout << "CATEGORIA SELECCIONADA: " << categoriaSeleccionada.nombre << "\n\n";
+    mostrarListaProductos(categoriaSeleccionada.productos, categoriaSeleccionada.numProductos);
 
-        mostrarListaProductos(categoriaSeleccionada.productos, categoriaSeleccionada.numProductos);
+    int eleccionProducto = SeleccionProducto(categoriaSeleccionada.numProductos);
 
-        int eleccionProducto = SeleccionProducto(categoriaSeleccionada.numProductos); //: Permite al usuario seleccionar un producto llamando a la función SeleccionProducto y almacenando la elección 
+    Producto& productoSeleccionado = categoriaSeleccionada.productos[eleccionProducto - 1];
 
-        if (eleccionProducto >= 1 && eleccionProducto <= categoriaSeleccionada.numProductos) { // Verifica si la elección de producto realizada por el usuario está dentro del rango válido para la categoría seleccionada.
-            Producto& productoSeleccionado = categoriaSeleccionada.productos[eleccionProducto - 1]; // Obtiene el producto seleccionado por el usuario a partir del arreglo de productos de la categoría, utilizando el índice correspondiente.
-
-            if (productoSeleccionado.stock > 0) //Verifica si el producto seleccionado tiene stock disponible.
-			{
-                mostrarDetallesProducto(productoSeleccionado);
-                int cantidadSeleccionada = IngreseCantidad(); //Solicita al usuario ingresar la cantidad de productos que desea comprar y almacena
-
-                cout << "Cantidad seleccionada: " << cantidadSeleccionada << "\n";
-                // operaciones adicionales con el producto
-            } else 
-			{
-                cout <<"El producto seleccionado esta agotado.\n";
-            }
-        } else 
-		{
-            cout <<"Seleccion de producto invalida.\n";
-        }
-    } else 
-	{
-        cout <<"Seleccion de categoría invalida.\n";
+    if (productoSeleccionado.stock <= 0)
+    {
+        cout << "El producto seleccionado esta agotado.\n";
+        return;
     }
+
+    mostrarDetallesProducto(productoSeleccionado);
+    int cantidadSeleccionada = IngreseCantidad();
+    cout << "Cantidad seleccionada: " << cantidadSeleccionada << "\n";
+    // Operaciones adicionales con el producto
 }
+
 
 void TiendaUsuario() // Se define un arreglo de categorías con sus respectivos productos y cantidades en stock, proporcionando una estructura de datos para representar una tienda virtual con diferentes categorías de productos.
 {
@@ -352,11 +335,11 @@ void TiendaUsuario() // Se define un arreglo de categorías con sus respectivos p
 		},
 		
     };
-    cout << "***********************************************************" << endl;
-    cout << "*                                                         *" << endl;
-    cout << "*        BIENVENIDO A NUESTRA TIENDA VIRTUAL INNOU        *" << endl;
-    cout << "*                                                         *" << endl;
-    cout << "***********************************************************" << endl;
+    cout<< "***********************************************************" << endl;
+    cout<< "*                                                         *" << endl;
+    cout<< "*        BIENVENIDO A NUESTRA TIENDA VIRTUAL INNOU        *" << endl;
+    cout<< "*                                                         *" << endl;
+    cout<< "***********************************************************" << endl;
     mostrarListaCategorias(categorias, MAX_CATEGORIAS);
     guardarCategorias(categorias, MAX_CATEGORIAS);
     int eleccionCategoria = SeleccionCategoria(MAX_CATEGORIAS);
