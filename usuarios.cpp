@@ -8,17 +8,19 @@
 #ifndef usuarios_H
 #define usuarios_H
 */
-using namespace std;
-static void CargarEstructuras(void) ;
-static void NuevoUsuario(void);
-static void LoginUsu(void);
-static void Menu();
 struct Usuarios{
 	string nombre ;
 	string contra ;
 	string tipo ;
 	string moneda;
 }usuario[100];
+
+using namespace std;
+static void CargarEstructuras(void) ;
+static void NuevoUsuario(void);
+static void LoginUsu(void);
+static void Menu();
+
 int num_usu;
 
 static void CargarEstructuras(int &num_usu)
@@ -27,7 +29,6 @@ static void CargarEstructuras(int &num_usu)
 	string linea;
 	char delimit = ';';
 	ifstream UsuariosText;
-	//	ofstream UsuariosText;
 	UsuariosText.open("Usuarios.csv",ios::in);
 	if (!UsuariosText.is_open())
 	{
@@ -43,8 +44,7 @@ static void CargarEstructuras(int &num_usu)
 		getline(stream, Contrasena, delimit);
 		usuario[num_usu].nombre = Usuario;
 		usuario[num_usu].contra = Contrasena;
-		//cout<<usuario[num_usu].nombre<<endl;
-		//cout<<usuario[num_usu].contra<<endl;
+
 		if(num_usu == 0) {
 			usuario[num_usu].tipo = "admin";
 		}
@@ -60,8 +60,6 @@ static void CargarEstructuras(int &num_usu)
 static void NuevoUsuario(void)
 {
 	CargarEstructuras(num_usu);
-	//cout<<usuario[0].nombre ;
-	//cout<<"HOLA"<<endl;
 	string NewUsu,NewContra;
 	int RegExist = 0;
 	ofstream UsuariosText;
@@ -72,32 +70,28 @@ static void NuevoUsuario(void)
 	}	
 	cout<<"\t\t\tREGISTRESE\n";
 	cout<<"Usuario: ";cin>>NewUsu;
-		for (int i = 0 ; i < num_usu ; i++){
-		if( NewUsu == usuario[i].nombre)
-		{
-			RegExist = 1;
-			break;			
-		}
+	for (int i = 0 ; i < num_usu ; i++){
+	if( NewUsu == usuario[i].nombre)
+	{
+		RegExist = 1;
+		break;			
+	}
 	}
 
-
-	//cout<<RegExist<<endl;
-	if (RegExist == 0){
-		cout<<"Registrado Correctamente";
-		UsuariosText<<NewUsu<<";"<<NewContra<<endl;
-		UsuariosText.close();
-		system("pause");
-		system("CLS");
-		Menu();
-	}
-	else{
-		cout<<"Usuario Ya existe. Intentelo denuevo"<<endl;
+	if (RegExist != 0){
+		cout<<"\nUsuario Ya existe. Intentelo denuevo"<<endl;
 		UsuariosText.close();
 		system("pause");
 		system("CLS");
 		NuevoUsuario();
 	}
 	cout<<"Contraseña: ";cin>>NewContra;
+	cout<<"\nRegistrado Correctamente"<<endl;
+	UsuariosText<<NewUsu<<";"<<NewContra<<endl;
+	UsuariosText.close();
+	system("pause");
+	system("CLS");
+	Menu();
 	
 }
 /////////////////////////////////////////////////////
@@ -120,26 +114,13 @@ static void LoginUsu(void)
 			system("CLS");
 			if (usuario[i].tipo == "admin")
 			{
-				//
 				TiendaUsuario();
 				//Mostrar TIENDA DE ADMINISTRADOR()
-				//
-				//
-				//
-				//
-
 				break;
 			}
 			else
 			{
-				//
-				//
 				TiendaUsuario();
-				//LISTO //Mostrar TIENDA DE USUARIO()
-				//
-				//
-				//
-				//
 				break;
 			}
 		}
@@ -165,7 +146,7 @@ void Menu()
 {
 	/////MENU 1
 	char SelecMenu1,la;
-	cout<<"\t\tMENU\n1.- Crear Usuario\n2.- Iniciar sesion\n\n \3.- Salir"<<endl;
+	cout<<"\n\t\tMENU\n1.- Crear Usuario\n2.- Iniciar sesion\n\n \3.- Salir"<<endl;
 	cin>>SelecMenu1;
 	switch(SelecMenu1)
 	{
