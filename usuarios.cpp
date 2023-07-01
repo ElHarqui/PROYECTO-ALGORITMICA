@@ -146,7 +146,7 @@ void Menu()
 {
 	/////MENU 1
 	char SelecMenu1,la;
-	cout<<"\n\t\tMENU\n1.- Crear Usuario\n2.- Iniciar sesion\n\n \3.- Salir"<<endl;
+	cout<<"\n\t\tMENU\n1.- Crear Usuario\n2.- Iniciar sesion\n\n 0.- Salir"<<endl;
 	cin>>SelecMenu1;
 	switch(SelecMenu1)
 	{
@@ -160,6 +160,8 @@ void Menu()
 			system("CLS");
 			LoginUsu();
 			break;
+		case '0':
+			exit(1);
 		default :
 			cout<<"Error,Intente denuevo."<<endl;
 			system("pause");
