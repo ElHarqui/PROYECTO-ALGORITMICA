@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string.h>
 #include "categorias.cpp"
+#include "logo.cpp"
 
 /*
 #ifndef usuarios_H
@@ -21,6 +22,7 @@ static void NuevoUsuario(void);
 static void LoginUsu(void);
 static void menu2();
 static void Menu();
+static void menuDolar();
 
 
 int num_usu;
@@ -149,8 +151,9 @@ void menu2()
 	int option;
 	cout << "\n--- Menu 2 ---\n";
     cout << "1. Iniciar tienda\n2. Configuracion\n\n0. Cerrar sesion"<<endl;
+    cout << "-> ";
     cin >> option;
-
+	system("CLS");
     if (option == 1) {
         cout << "\nIniciando tienda...\n";
         system("pause");
@@ -159,26 +162,7 @@ void menu2()
         TiendaUsuario();
     } 
 	else if (option == 2) {
-        cout << "\n--- Configuración ---\n";
-        //cout << "Tipo de moneda actual: " << currencyType << endl;
-        cout << "Seleccione una opción:\n";
-        cout << "1. Cambiar a dólar\n";
-        cout << "2. Cambiar a soles\n";
-        cout << "0. Volver al menú principal\n";
-        cout << "Seleccione una opción: ";
-        cin >> option;
-
-        /*if (option == 1) {
-            updateCurrencyType("dólar");
-            cout << "\nTipo de moneda cambiado a dólar.\n";
-        } else if (option == 2) {
-            updateCurrencyType("soles");
-            cout << "\nTipo de moneda cambiado a soles.\n";
-        } else if (option == 0) {
-            Menu2(); // Vuelve al menú principal
-        } else {
-            cout << "\nOpción inválida.\n";
-        }*/
+        menuDolar();
     } else if (option == 0) {
     	system("CLS");
         Menu(); // Cierra sesión
@@ -188,11 +172,41 @@ void menu2()
         menu2();
     }
 }
+void menuDolar()
+{
+	int option;
+	cout << "\n--- Configuracion ---\n";
+    //cout << "Tipo de moneda actual: " << currencyType << endl;
+    cout << "1. Cambiar a dolar\n";
+    cout << "2. Cambiar a soles\n\n";
+    cout << "0. Volver\n";
+    cout << "-> ";
+    cin >> option;
+
+    if (option == 1) {
+      //  updateCurrencyType("dólar");
+        cout << "\nTipo de moneda cambiado a dólar.\n";
+    } else if (option == 2) {
+      //  updateCurrencyType("soles");
+        cout << "\nTipo de moneda cambiado a soles.\n";
+    } else if (option == 0) {
+        system("CLS");
+		menu2(); // Vuelve al menú principal
+    } else {
+        cout << "\nOpción inválida.\n";
+        system("pause");
+        system("CLS");
+		menuDolar();
+    }
+}
 void Menu()
 {
+	logo();
+	//system("cls");
 	/////MENU 1
 	char SelecMenu1,la;
-	cout<<"\n--- Menu 1 ---\n1.- Crear Usuario\n2.- Iniciar sesion\n\n 0.- Salir"<<endl;
+	cout<<"\n--- Menu 1 ---\n1.- Crear Usuario\n2.- Iniciar sesion\n\n0.- Salir"<<endl;
+	cout << "-> ";
 	cin>>SelecMenu1;
 	switch(SelecMenu1)
 	{
