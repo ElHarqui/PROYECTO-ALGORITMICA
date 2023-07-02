@@ -157,12 +157,16 @@ void procesarSeleccion(Categoria* categorias, int eleccionCategoria)
     mostrarDetallesProducto(productoSeleccionado);
     int cantidadSeleccionada = IngreseCantidad(); //Solicita al usuario ingresar la cantidad de productos que desea comprar y almacena
     cout << "Cantidad seleccionada: " << cantidadSeleccionada << "\n";
-    // Operaciones adicionales con el producto
+    //
+	//Operaciones adicionales con el producto
+	//
 }
 
 
 void TiendaUsuario() // Se define un arreglo de categorías con sus respectivos productos y cantidades en stock, proporcionando una estructura de datos para representar una tienda virtual con diferentes categorías de productos.
 {
+	bool realizarOtraCompra = true;
+	 while (realizarOtraCompra){
     Categoria categorias[MAX_CATEGORIAS] = 
 	{
         {
@@ -360,6 +364,17 @@ void TiendaUsuario() // Se define un arreglo de categorías con sus respectivos p
     int eleccionCategoria = SeleccionCategoria(MAX_CATEGORIAS);
     system("CLS");
     procesarSeleccion(categorias, eleccionCategoria);
+    cout << "¿Desea realizar otra compra? (s/n): ";
+        char opcion;
+        cin >> opcion;
+
+        if (opcion != 's' && opcion != 'S')
+        {
+            realizarOtraCompra = false;
+        }
+
+        system("cls"); // Limpia la pantalla antes de mostrar el menú nuevamente
+    }
     getch();
 }
 
