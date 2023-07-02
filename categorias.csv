@@ -1,0 +1,111 @@
+Categoria;Producto;Precio;Stock
+ALIMENTOS BASICOS;Arroz(1kg);5.5;50
+ALIMENTOS BASICOS;Leche(1Lt);20.5;50
+ALIMENTOS BASICOS;Aceite(1Lt);10.5;50
+ALIMENTOS BASICOS;Pan(unidad);0.5;50
+ALIMENTOS BASICOS;Azucar;7.8;50
+ALIMENTOS BASICOS;Fideos(1kg);7.5;50
+ALIMENTOS BASICOS;Manteca(1kg);4.5;50
+ALIMENTOS BASICOS;Huevo(1kg);7;50
+ALIMENTOS BASICOS;Sal(1kg);8;50
+ALIMENTOS BASICOS;Harina(1kg);7.8;50
+FRUTAS;Manzana(1kg);12.99;25
+FRUTAS;Pera(1kg);29.99;25
+FRUTAS;Uva(1kg);7;25
+FRUTAS;Arandanos(1kg);14.5;25
+FRUTAS;Platanos(1kg);8.2;25
+FRUTAS;Mandarina(1kg);4;25
+FRUTAS;Granadilla(1kg);6.5;25
+FRUTAS;Naranja(1kg);4.5;25
+FRUTAS;Papaya(1kg);17.99;25
+FRUTAS;Piña(Unidad);5.5;25
+VERDURAS;Zanahoria (1kg);6.99;25
+VERDURAS;Lechuga (unidad);3.99;25
+VERDURAS;Tomate (1kg);8.5;25
+VERDURAS;Cebolla (1kg);5.25;25
+VERDURAS;Pimiento (1kg);12.75;25
+VERDURAS;Espinaca (1kg);9.99;25
+VERDURAS;Papa (1kg);4.5;25
+VERDURAS;Brocoli (unidad);6.25;25
+VERDURAS;Coliflor (unidad);7.99;25
+VERDURAS;Pepino (1kg);7.5;25
+BEBIDAS;Inca Kola (2L);6.99;50
+BEBIDAS;Chicha Morada (1L);8.5;50
+BEBIDAS;Emoliente (500ml);5.99;50
+BEBIDAS;Cerveza Cusqueña (355ml);4.5;50
+BEBIDAS;Pisco (750ml);35.99;10
+BEBIDAS;Jugo de Maracuya (1L);7.25;50
+BEBIDAS;Agua Mineral (500ml);2.99;50
+BEBIDAS;Coca-Cola (2L);7.99;50
+BEBIDAS;Jugo de Naranja (1L);6.5;50
+BEBIDAS;Sprite (500ml);4.99;50
+GOLOSINAS;Choclo Pop (100g);3.99;50
+GOLOSINAS;Galletas de Soda (200g);2.5;50
+GOLOSINAS;Chocolatito (30g);1.25;50
+GOLOSINAS;Caramelos de Limon (50g);1.99;50
+GOLOSINAS;Chicles Bazooka (5 unidades);0.75;50
+GOLOSINAS;Paleta de Caramelo (1 unidad);1.5;50
+GOLOSINAS;Alfajor de Manjar Blanco;2.75;50
+GOLOSINAS;Confitados (80g);4.25;50
+GOLOSINAS;Chocolate Sublime (40g);2.99;50
+GOLOSINAS;Gomitas Frutales (100g);3.5;50
+CARNES;Pollo Entero (1kg);12.99;25
+CARNES;Carne de Res (1kg);24.99;25
+CARNES;Cerdo (1kg);18.99;25
+CARNES;Pavo (1kg);15.99;25
+CARNES;Chorizo (500g);8.99;25
+CARNES;Jamon (200g);6.5;25
+CARNES;Lomo de Cerdo (1kg);22.99;25
+CARNES;Costillas de Res (1kg);19.99;25
+CARNES;Picana de Pollo (1kg);11.99;25
+CARNES;Chuletas de Cordero (1kg);28.99;25
+LACTEOS;Leche Entera (1Lt);5.99;50
+LACTEOS;Queso Parmesano (200g);8.5;50
+LACTEOS;Mantequilla (250g);4.99;50
+LACTEOS;Yogur Natural (500g);3.5;50
+LACTEOS;Crema de Leche (200ml);3.99;50
+LACTEOS;Leche Condensada (395g);5.25;50
+LACTEOS;Queso Mozzarella (400g);7.99;50
+LACTEOS;Yogur de Frutas (150g);1.75;50
+LACTEOS;Helado de Vainilla (1Lt);10.99;50
+LACTEOS;Leche Descremada (1Lt);5.99;50
+LICORES;Pisco (750ml);35.99;50
+LICORES;Vodka (750ml);29.99;50
+LICORES;Ron Añejo (750ml);27.5;50
+LICORES;Whisky Escocés (750ml);49;50
+LICORES;Tequila (750ml);45;50
+LICORES;Ginebra (750ml);38;50
+LICORES;Vino Tinto (750ml);50;50
+LICORES;Champan (750ml);42.5;50
+LICORES;Cerveza (500ml);8;50
+LICORES;Licor de Cafe (500ml);15.99;50
+PRODUCTOS DE LIMPIEZA;Detergente (1L);10.99;50
+PRODUCTOS DE LIMPIEZA;Cloro (1L);7.5;40
+PRODUCTOS DE LIMPIEZA;Limpiavidrios (500ml);9;50
+PRODUCTOS DE LIMPIEZA;Desinfectante (500ml);10;50
+PRODUCTOS DE LIMPIEZA;Jabon en Polvo (1kg);12.5;50
+PRODUCTOS DE LIMPIEZA;Suavizante de Telas (1L);16;50
+PRODUCTOS DE LIMPIEZA;Lavaplatos (500ml);8.5;50
+PRODUCTOS DE LIMPIEZA;Esponjas (Pack de 3);5.5;50
+PRODUCTOS DE LIMPIEZA;Desodorante de Ambientes (250ml);7;50
+PRODUCTOS DE LIMPIEZA;Papel Higienico (Pack de 4 rollos);8.5;50
+HELADOS;Helado de Vainilla (500ml);12.9;50
+HELADOS;Helado de Chocolate (500ml);12.9;50
+HELADOS;Helado de Fresa (500ml);12.9;15
+HELADOS;Helado de Cookies and Cream (500ml);14.9;50
+HELADOS;Helado de Mango (500ml);13.5;50
+HELADOS;Helado de Menta (500ml);13.5;50
+HELADOS;Helado de Dulce de Leche (500ml);15;50
+HELADOS;Helado de Nuez (500ml);13.99;15
+HELADOS;Helado de Fudge Brownie (500ml);16;50
+HELADOS;Helado de Stracciatella (500ml);14;50
+CUIDADO PERSONAL;Shampoo (500ml);15.99;50
+CUIDADO PERSONAL;Acondicionador (500ml);15.99;50
+CUIDADO PERSONAL;Jabon de Baño (Pack de 3);9.99;50
+CUIDADO PERSONAL;Desodorante (50ml);12.99;50
+CUIDADO PERSONAL;Crema Hidratante (200ml);19.99;50
+CUIDADO PERSONAL;Cepillo de Dientes;4.99;50
+CUIDADO PERSONAL;Pasta Dental (100g);7.99;50
+CUIDADO PERSONAL;Cortauñas;3.99;35
+CUIDADO PERSONAL;Locion Corporal (250ml);16.99;50
+CUIDADO PERSONAL;Protector Solar (SPF 50);24.99;50
