@@ -118,7 +118,7 @@ static void LoginUsu(void)
 			system("CLS");
 			if (usuario[i].tipo == "admin")
 			{
-				TiendaUsuario();
+				tiendausuario();
 				//Mostrar TIENDA DE ADMINISTRADOR()
 				break;
 			}
@@ -159,7 +159,7 @@ void menu2()
         system("pause");
         system("CLS");
         // Lógica para iniciar la tienda
-        TiendaUsuario();
+        tiendausuario();
     } 
 	else if (option == 2) {
         menuDolar();
