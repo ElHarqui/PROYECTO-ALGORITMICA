@@ -6,8 +6,7 @@
 #include <conio.h>
 using namespace std;
 
-struct Venta 
-{
+struct Venta{
 	char nombre[10];
 	char dir_actual[30];
 	char dir_nueva[30];
@@ -15,11 +14,18 @@ struct Venta
 	int hora;
 	float monto_pago;
 	float vuelto;
-}*V;
-
+}V[100];
+//declarando
 void modo_de_despacho(Venta V[], int n );
 void mostrar(Venta V[], int n );
-	
+//principal
+int main()
+{
+	int n=100;
+	modo_de_despacho(V, n);
+	mostrar(V, n);	
+}
+//ejecutando	
 void modo_de_despacho(Venta V[], int n )
 {
 	int d, m;
@@ -73,11 +79,6 @@ void mostrar(Venta V[], int n )
 	}
 }
 	
-int main()
-{
-	int n;
-	modo_de_despacho(V, n);
-	mostrar(V, n);	
-}
+
 
 
