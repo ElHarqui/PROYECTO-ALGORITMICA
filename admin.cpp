@@ -20,12 +20,13 @@ void imprimirListaProductos(const std::vector<Producto>& listaProductos) {
 }
 
 int main() {
-    ifstream archivo("lista_productos.txt");
+    ifstream archivo;
+    archivo.open("lista_productos.txt",ios::in);
+    
     vector<Producto> listaProductos;
-
     if (archivo.is_open()) {
         string linea;
-        while (std::getline(archivo, linea)) {
+        while (getline(archivo, linea)) {
             Producto producto;
             string nombre;
             string precio;
