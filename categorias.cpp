@@ -58,6 +58,7 @@ int main()
 }
 
 //SUBPROGRMAS
+
 void cargarDatos(Categoria categorias[], int numCategorias)
 {
     ifstream archivo("datos.txt"); // Nombre del archivo con los datos
@@ -89,78 +90,6 @@ void cargarDatos(Categoria categorias[], int numCategorias)
     {
         cout << "No se pudo abrir el archivo." << endl;
     }
-}
-
-
-void guardarDatos(Categoria categorias[], int numCategorias)
-{
-    ofstream archivo("datos.txt"); // Nombre del archivo para guardar los datos
-
-    if (archivo)
-    {
-        for (int i = 0; i < numCategorias; i++)//Itera sobre las categorías y sus productos
-        {
-            archivo << categorias[i].nombre << endl;
-            archivo << categorias[i].numProductos << endl;
-
-            for (int j = 0; j < categorias[i].numProductos; j++)
-            {
-                archivo << categorias[i].productos[j].nombre << endl;
-                archivo << categorias[i].productos[j].precio << endl;
-                archivo << categorias[i].productos[j].stock << endl;
-            }
-        }
-        archivo.close();
-        cout<<"\n";
-        cout << "[Se actualizo el stock]" << endl;
-    }
-    else
-    {
-        cout << "No se pudo abrir el archivo para guardar los datos." << endl;
-    }
-}
-
-void mostrarCategorias(Categoria* categorias, int numCategorias)
-{
-    cout << "CATEGORIAS DISPONIBLES:" << endl;
-    cout<<endl;
-
-    for (int i = 0; i < numCategorias; i++)
-    {
-        cout<<"  ";
-		cout << i + 1 << ". " << categorias[i].nombre << endl;
-    }
-}
-
-void mostrarProductos(Categoria& categoria)
-{
-    cout << "PRODUCTOS DE LA CATEGORIA [" << categoria.nombre << "]:" << endl;
-
-    for (int i = 0; i < categoria.numProductos; i++)
-    {
-        cout << i + 1 << ". " << categoria.productos[i].nombre << " - S/. " << categoria.productos[i].precio<< "  [Stock: " << categoria.productos[i].stock<< "]\n";
-    }
-}
-
-void agregarAlCarrito(Producto carrito[], int& numProductosCarrito, Producto producto, int cantidad)
-{
-    carrito[numProductosCarrito] = producto;
-    carrito[numProductosCarrito].cantidad = cantidad;
-    numProductosCarrito++;
-}
-
-void mostrarCarrito(Producto carrito[], int& numProductosCarrito)
-{
-    cout << "----- CARRITO DE COMPRAS -----" << endl;
-
-    for (int i = 0; i < numProductosCarrito; i++)
-    {
-        cout << "Producto: " << carrito[i].nombre << endl;
-        cout << "Cantidad: " << carrito[i].cantidad << endl;
-        cout << "Precio: " << carrito[i].precio << endl;
-    }
-
-    cout << "-----------------------------" << endl;
 }
 
 void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito,Producto carrito[])
@@ -244,6 +173,79 @@ void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCa
     cout << "Subtotal: " << subtotal << endl;
     cout << "Total: " << carrito[numProductosCarrito].total << endl;
 }
+
+void mostrarCategorias(Categoria* categorias, int numCategorias)
+{
+    cout << "CATEGORIAS DISPONIBLES:" << endl;
+    cout<<endl;
+
+    for (int i = 0; i < numCategorias; i++)
+    {
+        cout<<"  ";
+		cout << i + 1 << ". " << categorias[i].nombre << endl;
+    }
+}
+
+void mostrarProductos(Categoria& categoria)
+{
+    cout << "PRODUCTOS DE LA CATEGORIA [" << categoria.nombre << "]:" << endl;
+
+    for (int i = 0; i < categoria.numProductos; i++)
+    {
+        cout << i + 1 << ". " << categoria.productos[i].nombre << " - S/. " << categoria.productos[i].precio<< "  [Stock: " << categoria.productos[i].stock<< "]\n";
+    }
+}
+
+void guardarDatos(Categoria categorias[], int numCategorias)
+{
+    ofstream archivo("datos.txt"); // Nombre del archivo para guardar los datos
+
+    if (archivo)
+    {
+        for (int i = 0; i < numCategorias; i++)//Itera sobre las categorías y sus productos
+        {
+            archivo << categorias[i].nombre << endl;
+            archivo << categorias[i].numProductos << endl;
+
+            for (int j = 0; j < categorias[i].numProductos; j++)
+            {
+                archivo << categorias[i].productos[j].nombre << endl;
+                archivo << categorias[i].productos[j].precio << endl;
+                archivo << categorias[i].productos[j].stock << endl;
+            }
+        }
+        archivo.close();
+        cout<<"\n";
+        cout << "[Se actualizo el stock]" << endl;
+    }
+    else
+    {
+        cout << "No se pudo abrir el archivo para guardar los datos." << endl;
+    }
+}
+
+
+void agregarAlCarrito(Producto carrito[], int& numProductosCarrito, Producto producto, int cantidad)
+{
+    carrito[numProductosCarrito] = producto;
+    carrito[numProductosCarrito].cantidad = cantidad;
+    numProductosCarrito++;
+}
+
+void mostrarCarrito(Producto carrito[], int& numProductosCarrito)
+{
+    cout << "----- CARRITO DE COMPRAS -----" << endl;
+
+    for (int i = 0; i < numProductosCarrito; i++)
+    {
+        cout << "Producto: " << carrito[i].nombre << endl;
+        cout << "Cantidad: " << carrito[i].cantidad << endl;
+        cout << "Precio: " << carrito[i].precio << endl;
+    }
+
+    cout << "-----------------------------" << endl;
+}
+
 void tiendausuario()
 {
 	cout<<"               ";
@@ -272,6 +274,7 @@ void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Catego
 {
     cout << "1. Agregar producto" << endl;
     cout << "2. Quitar producto" << endl;
+    cout << "3. Mostrar contenido del carrito" << endl;
     cout << "Ingrese una opcion: ";
     int opcion;
     cin >> opcion;
@@ -339,28 +342,26 @@ void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Catego
             cout << "No hay productos en el carrito." << endl;
         }
     }
+    else if (opcion == 3)
+    {
+        // Mostrar contenido del carrito
+        mostrarCarrito(carrito, numProductosCarrito);
+    }
     else
     {
         cout << "Opcion invalida. Por favor intente de nuevo." << endl;
     }
 }
-
 void mostrarResumen(Producto carrito[], int& numProductosCarrito)
 {
     cout << "--------RESUMEN DE LA COMPRA--------" << endl;
     cout << "Productos comprados:" << endl;
-    cout <<numProductosCarrito;
-    
-    for (int i = 0; i < numProductosCarrito; i++)
+
+    for (int i = 0; i < numProductosCarrito; i++)  //recorre los productos en el carrito
     {
         cout << "- " << carrito[i].nombre << " x " << carrito[i].cantidad << endl;
     }
     cout << "Subtotal: $" << carrito[numProductosCarrito].total << endl;
-
-    // Calcular el total sumando el subtotal más el impuesto o cualquier otro cargo adicional
-    double impuesto = carrito[numProductosCarrito].total * 0.16; // Supongamos un impuesto del 16%
-    double todo = carrito[numProductosCarrito].total + impuesto;
-    cout << "Total a pagar: $" << todo << endl;
 
     // Proceso de cobro al cliente
     double pago;
