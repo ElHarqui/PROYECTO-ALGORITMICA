@@ -35,11 +35,11 @@ struct Resumen
 } carrito1;
 
 //PROTOTIPOS
-void cargarDatos(Categoria categorias[], int& numCategorias);
+void cargarDatos(Categoria categorias[], int numCategorias);
 void guardarDatos(Categoria categorias[], int numCategorias);
 void mostrarCategorias(Categoria* categorias, int numCategorias);
 void mostrarProductos(Categoria& categoria);
-void agregarAlCarrito(Producto carrito[], int& numProductosCarrito, Producto producto, int cantidad);
+void agregarAlCarrito(Producto carrito[], int& numProductosCarrito,Producto producto, int cantidad);
 void mostrarCarrito(Producto carrito[], int& numProductosCarrito);
 void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito ,Producto carrito[]);//!2-AQUI SE DECLARO PRODUCTO CARRITO Y LO VOLVI  GLOBAL
 void tiendausuario();
@@ -53,7 +53,7 @@ int numProductosCarrito = 0; //!2-AQUI LO DECLARE
 
 
 //SUBPROGRMAS
-void cargarDatos(Categoria categorias[], int& numCategorias)
+void cargarDatos(Categoria categorias[], int numCategorias)
 {
     ifstream archivo("datos.txt"); // Nombre del archivo con los datos
 
@@ -115,7 +115,7 @@ void guardarDatos(Categoria categorias[], int numCategorias)
     }
 }
 
-void mostrarCategorias(Categoria* categorias, int& numCategorias)
+void mostrarCategorias(Categoria* categorias, int numCategorias)
 {
     cout << "CATEGORIAS DISPONIBLES:" << endl;
     cout<<endl;
@@ -255,7 +255,7 @@ void tiendausuario()
 	Categoria categorias[100];
     int numCategorias = 0;
     cargarDatos(categorias, numCategorias);
-    realizarVenta(categorias, numCategorias,,carrito);
+    realizarVenta(categorias, numCategorias,numProductosCarrito,carrito);
     guardarDatos(categorias, numCategorias);
 	//agregarQuitarProductos();
     //mostrarResumen(item, total);
@@ -264,7 +264,7 @@ void tiendausuario()
 ////////////////////////////////////////////////////
 //////////////////////////////////////////////////
 
-void agregarQuitarProductos()
+void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito)
 {
     cout << "¿Desea agregar o quitar productos ? // si no desea ninguno(continuar) ";
     cin.ignore(); // Ignorar el salto de línea anterior
@@ -309,7 +309,7 @@ void agregarQuitarProductos()
     }
 }
 
-void mostrarResumen(CarritoItem A, double& Total)
+void mostrarResumen(Producto carrito[], int& numProductosCarrito)
 {
 
     int menu ,final;
