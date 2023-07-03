@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-
+//#include "visualizar.cpp"
 using namespace std;
 
 //ESTRUCTURAS
@@ -43,16 +43,9 @@ void agregarAlCarrito(Producto carrito[], int& numProductosCarrito, Producto pro
 void mostrarCarrito(Producto carrito[], int numProductosCarrito);
 void realizarVenta(Categoria categorias[], int numCategorias);
 void tiendausuario();
-void agregarQuitarProductos();
-void mostrarResumen(CarritoItem A, double& Total);
+//void agregarQuitarProductos();
+//void mostrarResumen(CarritoItem A, double& Total); //!FUNCION NO RECONOCIDA (CarritoItem no existe)
 
-
-//FUNCION PRINCIPAL
-int main()
-{
-    tiendausuario();
-    return 0;
-}
 
 //SUBPROGRMAS
 void cargarDatos(Categoria categorias[], int& numCategorias)
@@ -259,13 +252,13 @@ void tiendausuario()
     cargarDatos(categorias, numCategorias);
     realizarVenta(categorias, numCategorias);
     guardarDatos(categorias, numCategorias);
-	agregarQuitarProductos();
-    mostrarResumen(item, total);
+	//agregarQuitarProductos();
+    //mostrarResumen(item, total);
 }
 /////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 //////////////////////////////////////////////////
-
+/*
 void agregarQuitarProductos()
 {
     cout << "¿Desea agregar o quitar productos ? // si no desea ninguno(continuar) ";
@@ -361,6 +354,6 @@ void mostrarResumen(CarritoItem A, double& Total)
         cout << "Hasta la próxima, sus productos quedarán guardados en el carrito." << endl;
     }
 }
-
+*/
 
 
