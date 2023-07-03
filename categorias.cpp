@@ -11,7 +11,7 @@ struct Producto
     double precio;
     int stock;
     int cantidad; // Nueva propiedad para almacenar la cantidad comprada
-};
+}carrito[100];
 
 struct Categoria
 {
@@ -40,11 +40,16 @@ void guardarDatos(Categoria categorias[], int numCategorias);
 void mostrarCategorias(Categoria* categorias, int numCategorias);
 void mostrarProductos(Categoria& categoria);
 void agregarAlCarrito(Producto carrito[], int& numProductosCarrito, Producto producto, int cantidad);
-void mostrarCarrito(Producto carrito[], int numProductosCarrito);
-void realizarVenta(Categoria categorias[], int numCategorias);
+void mostrarCarrito(Producto carrito[], int& numProductosCarrito);
+void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito ,Producto carrito[]);//!2-AQUI SE DECLARO PRODUCTO CARRITO Y LO VOLVI  GLOBAL
 void tiendausuario();
-//void agregarQuitarProductos();
-//void mostrarResumen(CarritoItem A, double& Total); //!FUNCION NO RECONOCIDA (CarritoItem no existe)
+//joss-------------------------
+void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito);
+void mostrarResumen(Producto carrito[], int& numProductosCarrito); //!FUNCION NO RECONOCIDA (CarritoItem no existe)
+
+int numProductosCarrito = 0; //!2-AQUI LO DECLARE
+
+
 
 
 //SUBPROGRMAS
@@ -110,7 +115,7 @@ void guardarDatos(Categoria categorias[], int numCategorias)
     }
 }
 
-void mostrarCategorias(Categoria* categorias, int numCategorias)
+void mostrarCategorias(Categoria* categorias, int& numCategorias)
 {
     cout << "CATEGORIAS DISPONIBLES:" << endl;
     cout<<endl;
@@ -139,7 +144,7 @@ void agregarAlCarrito(Producto carrito[], int& numProductosCarrito, Producto pro
     numProductosCarrito++;
 }
 
-void mostrarCarrito(Producto carrito[], int numProductosCarrito)
+void mostrarCarrito(Producto carrito[], int& numProductosCarrito)
 {
     cout << "----- CARRITO DE COMPRAS -----" << endl;
 
@@ -153,10 +158,10 @@ void mostrarCarrito(Producto carrito[], int numProductosCarrito)
     cout << "-----------------------------" << endl;
 }
 
-void realizarVenta(Categoria categorias[], int numCategorias)
+void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito,Producto carrito[])
 {
-    Producto carrito[100]; // Arreglo para almacenar los productos comprados
-    int numProductosCarrito = 0;
+    //Producto carrito[100]; // Arreglo para almacenar los productos comprados
+    numProductosCarrito = 0;
     double subtotal = 0.0;
     double total = 0.0;
     char opcion;
@@ -250,7 +255,7 @@ void tiendausuario()
 	Categoria categorias[100];
     int numCategorias = 0;
     cargarDatos(categorias, numCategorias);
-    realizarVenta(categorias, numCategorias);
+    realizarVenta(categorias, numCategorias,,carrito);
     guardarDatos(categorias, numCategorias);
 	//agregarQuitarProductos();
     //mostrarResumen(item, total);
@@ -258,7 +263,7 @@ void tiendausuario()
 /////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 //////////////////////////////////////////////////
-/*
+
 void agregarQuitarProductos()
 {
     cout << "¿Desea agregar o quitar productos ? // si no desea ninguno(continuar) ";
@@ -354,6 +359,6 @@ void mostrarResumen(CarritoItem A, double& Total)
         cout << "Hasta la próxima, sus productos quedarán guardados en el carrito." << endl;
     }
 }
-*/
+
 
 
