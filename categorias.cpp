@@ -261,7 +261,7 @@ void tiendausuario()
     //mostrarResumen(item, total);
 }
 /////////////////////////////////////////////////////
-////////////////////////////////////////////////////
+///////////////////JOSS/////////////////////////
 //////////////////////////////////////////////////
 
 void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito)
@@ -318,7 +318,7 @@ void mostrarResumen(Producto carrito[], int& numProductosCarrito)
     cout << "Ingrese su descuento: $";
     cin >> carrito1.descuento; // el descuento que tiene el cliente
 
-    final = Total - carrito1.descuento; //El monto total - descuento para ver el pago en total que hara
+    final = /*Total(CAMBIAR ESTA VARIABLE*/ - carrito1.descuento; //El monto total - descuento para ver el pago en total que hara
 
     cout << "¿Le alcanza el monto para pagar? 1. SI // 2. NO ";
     cin >> menu;
@@ -328,11 +328,11 @@ void mostrarResumen(Producto carrito[], int& numProductosCarrito)
         cout << "\n";
 		cout << "Resumen del Carrito" << endl;
         cout << endl;
-        cout << "Carrito: " << item.nombre << endl;
+        cout << "Carrito: " << ""/*item.nombre  CAMBIAR ESTA VARIABLE*/ << endl;
         cout << endl;
-        cout << "La cantidad de productos es : " << item.cantidad << endl;// no se Guardo 
+        cout << "La cantidad de productos es : " << ""/*item.cantidad */<< endl;// no se Guardo 
         cout << endl;
-        cout << "Subtotal: S/." << Total << endl;
+        cout << "Subtotal: S/." << ""/*Total*/ << endl;
         cout << endl;
         cout << "Descuento: S/." << carrito1.descuento << endl;// no se Guardo 
         cout << endl;
