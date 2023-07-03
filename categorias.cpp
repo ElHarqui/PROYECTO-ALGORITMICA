@@ -1,366 +1,383 @@
 #include <iostream>
 #include <string>
-#include <iostream>
 #include <fstream>
-#include <cstdlib> 
-#include <conio.h>
 using namespace std;
 
-const int MAX_CATEGORIAS = 11;	// PUEDE VARIAR A UN FUTURO
-const int MAX_PRODUCTOS = 10;	// PUEDE VARIAR A UN FUTURO
-
-struct Producto 
+//ESTRUCTURAS
+struct Producto
 {
     string nombre;
     double precio;
     int stock;
-};
+    int cantidad;
+    double total = 0.0; // Nueva propiedad para almacenar la cantidad comprada
+}carrito[100];
 
-struct Categoria 
+struct Categoria
 {
     string nombre;
-    Producto productos[MAX_PRODUCTOS];
+    Producto productos[100];
     int numProductos;
 };
-void guardarCategorias(Categoria* categorias, int tam);
-void mostrarListaCategorias( Categoria* categorias, int tam);
-void mostrarListaProductos( Producto* productos, int tam);
-void mostrarDetallesProducto( Producto& producto); 
-int SeleccionCategoria(int tamCategorias); 
-int SeleccionProducto(int tamProductos);
-int IngreseCantidad();
-void procesarSeleccion( Categoria* categorias, int eleccionCategoria);
-void TiendaUsuario();
+struct agregar
+{
+    string accion;
+    int cantidad;
+    string nombre;
+    int stock;
+    
+} producto;
+
+struct Resumen
+{
+    int carrito;
+    float descuento;
+} carrito1;
+
+//PROTOTIPOS
+void cargarDatos(Categoria categorias[], int numCategorias);
+void guardarDatos(Categoria categorias[], int numCategorias);
+void mostrarCategorias(Categoria* categorias, int numCategorias);
+void mostrarProductos(Categoria& categoria);
+void agregarAlCarrito(Producto carrito[], int& numProductosCarrito,Producto producto, int cantidad);
+void mostrarCarrito(Producto carrito[], int& numProductosCarrito);
+void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito ,Producto carrito[]);//!2-AQUI SE DECLARO PRODUCTO CARRITO Y LO VOLVI  GLOBAL
+void tiendausuario();
+//joss-------------------------
+void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Categoria categorias[], int numCategorias);
+void mostrarResumen(Producto carrito[], int& numProductosCarrito ); //!FUNCION NO RECONOCIDA (CarritoItem no existe)
+
+int numProductosCarrito = 0; //!2-AQUI LO DECLARE
+
 
 int main()
 {
-	TiendaUsuario();
+   tiendausuario();
+
+    return 0;
 }
 
-void guardarCategorias(Categoria* categorias, int tam)
+//SUBPROGRMAS
+void cargarDatos(Categoria categorias[], int numCategorias)
 {
-    ofstream archivo("catgorias.csv");
-    if (!archivo)
+    ifstream archivo("datos.txt"); // Nombre del archivo con los datos
+
+    if (archivo)
     {
-        cout << "Error al abrir el archivo de categorias." <<endl;
-        return;
+        numCategorias = 0;
+
+        string linea;
+        while (getline(archivo, linea)) //itera sobre las líneas del archivo para obtener la información
+        {
+            categorias[numCategorias].nombre = linea;
+            archivo >> categorias[numCategorias].numProductos;
+            archivo.ignore();// Ignorar el salto de línea después de leer el número de productos
+
+            for (int i = 0; i < categorias[numCategorias].numProductos; i++)
+            {
+                getline(archivo, categorias[numCategorias].productos[i].nombre);
+                archivo >> categorias[numCategorias].productos[i].precio;
+                archivo >> categorias[numCategorias].productos[i].stock;
+                archivo.ignore(); // Ignorar el salto de línea después de cada categoría
+            }
+            numCategorias++;//Aumenta el contador para saber cuantas categorias se cargan
+        }
+
+        archivo.close();
+    }
+    else
+    {
+        cout << "No se pudo abrir el archivo." << endl;
+    }
+}
+
+
+void guardarDatos(Categoria categorias[], int numCategorias)
+{
+    ofstream archivo("datos.txt"); // Nombre del archivo para guardar los datos
+
+    if (archivo)
+    {
+        for (int i = 0; i < numCategorias; i++)//Itera sobre las categorías y sus productos
+        {
+            archivo << categorias[i].nombre << endl;
+            archivo << categorias[i].numProductos << endl;
+
+            for (int j = 0; j < categorias[i].numProductos; j++)
+            {
+                archivo << categorias[i].productos[j].nombre << endl;
+                archivo << categorias[i].productos[j].precio << endl;
+                archivo << categorias[i].productos[j].stock << endl;
+            }
+        }
+        archivo.close();
+        cout<<"\n";
+        cout << "[Se actualizo el stock]" << endl;
+    }
+    else
+    {
+        cout << "No se pudo abrir el archivo para guardar los datos." << endl;
+    }
+}
+
+void mostrarCategorias(Categoria* categorias, int numCategorias)
+{
+    cout << "CATEGORIAS DISPONIBLES:" << endl;
+    cout<<endl;
+
+    for (int i = 0; i < numCategorias; i++)
+    {
+        cout<<"  ";
+		cout << i + 1 << ". " << categorias[i].nombre << endl;
+    }
+}
+
+void mostrarProductos(Categoria& categoria)
+{
+    cout << "PRODUCTOS DE LA CATEGORIA [" << categoria.nombre << "]:" << endl;
+
+    for (int i = 0; i < categoria.numProductos; i++)
+    {
+        cout << i + 1 << ". " << categoria.productos[i].nombre << " - S/. " << categoria.productos[i].precio<< "  [Stock: " << categoria.productos[i].stock<< "]\n";
+    }
+}
+
+void agregarAlCarrito(Producto carrito[], int& numProductosCarrito, Producto producto, int cantidad)
+{
+    carrito[numProductosCarrito] = producto;
+    carrito[numProductosCarrito].cantidad = cantidad;
+    numProductosCarrito++;
+}
+
+void mostrarCarrito(Producto carrito[], int& numProductosCarrito)
+{
+    cout << "----- CARRITO DE COMPRAS -----" << endl;
+
+    for (int i = 0; i < numProductosCarrito; i++)
+    {
+        cout << "Producto: " << carrito[i].nombre << endl;
+        cout << "Cantidad: " << carrito[i].cantidad << endl;
+        cout << "Precio: " << carrito[i].precio << endl;
     }
 
-    archivo << "Categoria;Producto;Precio;Stock" <<endl;
+    cout << "-----------------------------" << endl;
+}
 
-    for (int i = 0; i < tam; ++i)
+void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito,Producto carrito[])
+{
+    //Producto carrito[100]; // Arreglo para almacenar los productos comprados
+    numProductosCarrito = 0;
+    double subtotal = 0.0;
+    char opcion;
+
+    do
     {
-         Categoria& categoria = categorias[i];
+        int categoriaSeleccionada;
+        int productoSeleccionado;
+        int cantidad;
 
-        for (int j = 0; j < categoria.numProductos; ++j)
+        mostrarCategorias(categorias, numCategorias);
+
+        cout<<endl;
+		cout<<" ->";
+		cout << "Selecciona una categoria: ";
+        cin >> categoriaSeleccionada;
+
+        // Verificar si el número de categoría es válido
+        while(categoriaSeleccionada < 1 || categoriaSeleccionada > numCategorias)
         {
-            Producto& producto = categoria.productos[j];
-            archivo << categoria.nombre << ";" << producto.nombre << ";"<< producto.precio << ";" << producto.stock <<endl;
+            cout << "Ha excedido el limite de categorias. Ingrese nuevamente: ";
+            cin >> categoriaSeleccionada;
+        }
+
+        // Obtener la categoría seleccionada
+        Categoria& categoria = categorias[categoriaSeleccionada - 1];
+		system("cls");	
+        mostrarProductos(categoria);
+
+		do
+		{
+			cout<<endl;
+			cout<<" ->";
+			cout << "Selecciona un producto: ";
+        	cin >> productoSeleccionado;
+		}while(productoSeleccionado < 1 || productoSeleccionado > categoria.numProductos);
+        
+        // Obtener el producto seleccionado
+        Producto& producto = categoria.productos[productoSeleccionado - 1];
+
+		cout<<endl;
+		cout<<" ->";
+        cout << "Ingrese la cantidad a comprar: ";
+        cin >> cantidad;
+
+        // Verificar si hay suficiente stock
+        while (cantidad > producto.stock)
+        {
+            cout << "Ha excedido el limite de categorias. Ingrese nuevamente: ";
+            cin >>cantidad;
+        }
+
+        // Realizar la venta y actualizar el stock
+        producto.stock -= cantidad;
+
+        // Agregar el producto al carrito con la cantidad seleccionada
+        agregarAlCarrito(carrito, numProductosCarrito, producto, cantidad);
+
+        subtotal += producto.precio * cantidad;
+
+		cout<<endl;
+		cout<<"   ";
+        cout << "[Eleccion realizada exitosamente]" << endl;
+
+        cout << "\nDesea agregar otro producto al carrito? (s/n): ";
+        cin >> opcion;
+        system("cls");
+    } while (opcion == 's' || opcion == 'S');
+
+    // Calcular el total
+    carrito[numProductosCarrito].total = subtotal;
+
+    // Mostrar el carrito y los totales
+    mostrarCarrito(carrito, numProductosCarrito);
+
+    cout << "Subtotal: " << subtotal << endl;
+    cout << "Total: " << carrito[numProductosCarrito].total << endl;
+}
+void tiendausuario()
+{
+	cout<<"               ";
+	cout<< "***********************************************************" << endl;
+	cout<<"               ";
+    cout<< "*                                                         *" << endl;
+    cout<<"               ";
+    cout<< "*        BIENVENIDO A NUESTRA TIENDA VIRTUAL INNOU        *" << endl;
+   	cout<<"               ";
+    cout<< "*                                                         *" << endl;
+    cout<<"               ";
+    cout<< "***********************************************************" << endl;   
+	Categoria categorias[100];
+    int numCategorias = 0;
+    cargarDatos(categorias, numCategorias);
+    realizarVenta(categorias, numCategorias,numProductosCarrito,carrito);
+    guardarDatos(categorias, numCategorias);
+	agregarQuitarProductos(carrito, numProductosCarrito, categorias, numCategorias);
+    mostrarResumen(carrito,numProductosCarrito);
+}
+/////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+//////////////////////////////////////////////////
+
+void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Categoria categorias[], int numCategorias)
+{
+    cout << "1. Agregar producto" << endl;
+    cout << "2. Quitar producto" << endl;
+    cout << "Ingrese una opcion: ";
+    int opcion;
+    cin >> opcion;
+
+    if (opcion == 1)
+    {
+        string producto;
+        cout << "Ingrese el nombre del producto: ";
+        cin.ignore();
+        getline(cin, producto);
+
+        int cantidad;
+        cout << "Ingrese la cantidad: ";
+        cin >> cantidad;
+
+        bool productoEncontrado = false;
+        for (int i = 0; i < numCategorias; i++)
+        {
+            for (int j = 0; j < categorias[i].numProductos; j++)
+            {
+                if (categorias[i].productos[j].nombre == producto)
+                {
+                    agregarAlCarrito(carrito, numProductosCarrito, categorias[i].productos[j], cantidad);
+                    productoEncontrado = true;
+                    break;
+                }
+            }
+            if (productoEncontrado)
+            {
+                break;
+            }
+        }
+
+        if (!productoEncontrado)
+        {
+            cout << "Producto no encontrado." << endl;
         }
     }
-    archivo.close();
-}
-
-void mostrarListaCategorias(Categoria* categorias, int tam) // Muestra por pantalla una lista de categorías
-{
-    cout<<"     ";
-	cout << "LISTA DE CATEGORIAS:\n";
-    for (int i = 0; i < tam; ++i) 
-	{
-         Categoria& categoria = categorias[i];
-         cout<<"     ";
-        cout << i + 1 << ". " << categoria.nombre << "\n";
-    }
-    cout << "\n";
-}
-
-void mostrarListaProductos(Producto* productos, int tam) // Recibe un arreglo de productos y su tamaño, y muestra por pantalla la lista de productos con su información 
-{
-    cout << "LISTA DE PRODUCTOS:\n";
-    for (int i = 0; i < tam; ++i) 
-	{
-        Producto& producto = productos[i];
-        cout<<"     ";
-		cout << i + 1 << ". " << producto.nombre << " - S/. " << producto.precio << "  [Stock: " << producto.stock << "]\n";
-    }
-    cout << "\n";
-}
-
-void mostrarDetallesProducto( Producto& producto) 
-{
-	cout<<"   ";
-	cout << "DETALLES DEL PRODUCTO:\n";
-	cout<<"   ";
-    cout << "Nombre: " << producto.nombre << "\n";
-    cout<<"   ";
-    cout << "Precio: S/." << producto.precio << "\n";
-    cout<<"   ";
-    cout << "Stock: " << producto.stock << "\n\n";
-}
-
-int SeleccionCategoria(int tamCategorias) 
-{
-    int eleccionCategoria;
-    cout<<"-> ";
-	cout << "Selecciona una categoria (1-" << tamCategorias << "): ";
-    cin >> eleccionCategoria;
-     while (eleccionCategoria>tamCategorias||eleccionCategoria<1) {
-        cout << "Ha excedido el limite de categorias. Ingrese nuevamente: ";
-        cin >> eleccionCategoria;
-    }
-    return eleccionCategoria;
-}
-
-int SeleccionProducto(int tamProductos) 
-{
-    int eleccionProducto;
-    cout<<"-> ";
-	cout << "Selecciona un producto (1-" << tamProductos << "): ";
-    cin >> eleccionProducto;
-    while (eleccionProducto>tamProductos||eleccionProducto<1) {
-        cout << "Ha excedido el limite de productos permitidos. Ingrese nuevamente: ";
-        cin >> eleccionProducto;
-    }
-    return eleccionProducto;
-}
-
-int IngreseCantidad() 
-{
-    int cantidad;
-    cout<<"-> ";
-	cout << "Ingrese la cantidad de productos que desea comprar (Maximo 3 productos por persona): ";
-    cin >> cantidad;
-    
-    // Verificar si la cantidad ingresada excede el límite máximo
-    while (cantidad > 3) {
-        cout << "Ha excedido el limite de productos permitidos. Ingrese nuevamente: ";
-        cin >> cantidad;
-    }
-    return cantidad;
-}
-void procesarSeleccion(Categoria* categorias, int eleccionCategoria)
-{
-    Categoria& categoriaSeleccionada = categorias[eleccionCategoria - 1]; //Obtiene la categoría seleccionada por el usuario a partir del arreglo de categorías, utilizando el índice correspondiente.
-	cout << "CATEGORIA SELECCIONADA: '" << categoriaSeleccionada.nombre << "'\n\n";
-    mostrarListaProductos(categoriaSeleccionada.productos, categoriaSeleccionada.numProductos);
-
-    int eleccionProducto = SeleccionProducto(categoriaSeleccionada.numProductos);//: Permite al usuario seleccionar un producto llamando a la función SeleccionProducto y almacenando la elección 
-
-    Producto& productoSeleccionado = categoriaSeleccionada.productos[eleccionProducto - 1];// Obtiene el producto seleccionado por el usuario a partir del arreglo de productos de la categoría, utilizando el índice correspondiente.
-
-    if (productoSeleccionado.stock <= 0) //Verifica si el producto seleccionado tiene stock disponible.
+    else if (opcion == 2)
     {
-        cout << "El producto seleccionado esta agotado.\n";
-        return;
-    }
+        if (numProductosCarrito > 0)
+        {
+            mostrarCarrito(carrito, numProductosCarrito);
+            cout << "Ingrese el numero del producto a quitar: ";
+            int numero;
+            cin >> numero;
 
-    mostrarDetallesProducto(productoSeleccionado);
-    int cantidadSeleccionada = IngreseCantidad(); //Solicita al usuario ingresar la cantidad de productos que desea comprar y almacena
-    cout << "Cantidad seleccionada: " << cantidadSeleccionada << "\n";
-    //
-	//Operaciones adicionales con el producto
-	//
+            if (numero >= 1 && numero <= numProductosCarrito)
+            {
+                cout << "Producto quitado: " << carrito[numero - 1].nombre << endl;
+                carrito[numProductosCarrito].total -= carrito[numero - 1].precio * carrito[numero - 1].cantidad;
+                for (int i = numero - 1; i < numProductosCarrito - 1; i++)
+                {
+                    carrito[i] = carrito[i + 1];
+                }
+                numProductosCarrito--;
+            }
+            else
+            {
+                cout << "Numero de producto invalido." << endl;
+            }
+        }
+        else
+        {
+            cout << "No hay productos en el carrito." << endl;
+        }
+    }
+    else
+    {
+        cout << "Opcion invalida. Por favor intente de nuevo." << endl;
+    }
 }
 
-
-void TiendaUsuario() // Se define un arreglo de categorías con sus respectivos productos y cantidades en stock, proporcionando una estructura de datos para representar una tienda virtual con diferentes categorías de productos.
+void mostrarResumen(Producto carrito[], int& numProductosCarrito)
 {
-    Categoria categorias[MAX_CATEGORIAS] = 
-	{
-        {
-            "ALIMENTOS BASICOS",
-            {
-                {"Arroz(1kg)", 5.50, 50},
-                {"Leche(1Lt)", 20.50, 50},
-                {"Aceite(1Lt)", 10.50, 50},
-                {"Pan(unidad)", 0.5, 50},
-                {"Azucar", 7.80, 50},
-                {"Fideos(1kg)",7.50 , 50},
-                {"Manteca(1kg)", 4.5, 50},
-                {"Huevo(1kg)", 7, 50},
-                {"Sal(1kg)", 8, 50},
-                {"Harina(1kg)", 7.80, 50}
-            },
-            10
-        },
-        {
-            "FRUTAS",
-            {
-                {"Manzana(1kg)", 12.99, 25},
-                {"Pera(1kg)", 29.99, 25},
-                {"Uva(1kg)", 7, 25},
-                {"Arandanos(1kg)", 14.5, 25},
-                {"Platanos(1kg)", 8.2, 25},
-                {"Mandarina(1kg)", 4, 25},
-                {"Granadilla(1kg)", 6.5, 25},
-                {"Naranja(1kg)", 4.5, 25},
-                {"Papaya(1kg)", 17.99, 25},
-                {"Pinia(Unidad)", 5.5, 25}
-               
-            },
-            10
-        },
-        {
-   			 "VERDURAS",
-   			 {
-        		{"Zanahoria (1kg)", 6.99, 25},
-        		{"Lechuga (unidad)", 3.99, 25},
-        		{"Tomate (1kg)", 8.50, 25},
-        		{"Cebolla (1kg)", 5.25, 25},
-        		{"Pimiento (1kg)", 12.75, 25},
-        		{"Espinaca (1kg)", 9.99, 25},
-        		{"Papa (1kg)", 4.50, 25},
-        		{"Brocoli (unidad)", 6.25, 25},
-        		{"Coliflor (unidad)", 7.99, 25},
-        		{"Pepino (1kg)", 7.50, 25}
-    		},
-    		10
-		},
+    cout << "--------RESUMEN DE LA COMPRA--------" << endl;
+    cout << "Productos comprados:" << endl;
+    cout <<numProductosCarrito;
+    
+    for (int i = 0; i < numProductosCarrito; i++)
+    {
+        cout << "- " << carrito[i].nombre << " x " << carrito[i].cantidad << endl;
+    }
+    cout << "Subtotal: $" << carrito[numProductosCarrito].total << endl;
 
+    // Calcular el total sumando el subtotal más el impuesto o cualquier otro cargo adicional
+    double impuesto = carrito[numProductosCarrito].total * 0.16; // Supongamos un impuesto del 16%
+    double todo = carrito[numProductosCarrito].total + impuesto;
+    cout << "Total a pagar: $" << todo << endl;
+
+    // Proceso de cobro al cliente
+    double pago;
+    do
+    {
+        cout << "Ingrese la cantidad a pagar: $";
+        cin >> pago;
+
+        if (pago < carrito[numProductosCarrito].total)
         {
-            "BEBIDAS",
-    		{
-        		{"Inca Kola (2L)", 6.99, 50},
-        		{"Chicha Morada (1L)", 8.50, 50},
-        		{"Emoliente (500ml)", 5.99, 50},
-        		{"Cerveza Cusqueña (355ml)", 4.50, 50},
-        		{"Pisco (750ml)", 35.99, 10},
-        		{"Jugo de Maracuya (1L)", 7.25, 50},
-        		{"Agua Mineral (500ml)", 2.99, 50},
-        		{"Coca-Cola (2L)", 7.99, 50},
-        		{"Jugo de Naranja (1L)", 6.50, 50},
-        		{"Sprite (500ml)", 4.99, 50}
-    		},
-    		10
-        },
-        {
-            "GOLOSINAS",
-    		{
-        		{"Choclo Pop (100g)", 3.99, 50},
-        		{"Galletas de Soda (200g)", 2.50, 50},
-        		{"Chocolatito (30g)", 1.25, 50},
-       			{"Caramelos de Limon (50g)", 1.99, 50},
-       			{"Chicles Bazooka (5 unidades)", 0.75,50},
-        		{"Paleta de Caramelo (1 unidad)", 1.50, 50},
-        		{"Alfajor de Manjar Blanco", 2.75, 50},
-        		{"Confitados (80g)", 4.25, 50},
-        		{"Chocolate Sublime (40g)", 2.99, 50},
-        		{"Gomitas Frutales (100g)", 3.50, 50}
-    		},
-    		10
-        },
-        {
-            "CARNES",
-    		{
-        		{"Pollo Entero (1kg)", 12.99, 25},
-        		{"Carne de Res (1kg)", 24.99, 25},
-        		{"Cerdo (1kg)", 18.99, 25},
-        		{"Pavo (1kg)", 15.99, 25},
-       			{"Chorizo (500g)", 8.99, 25},
-        		{"Jamon (200g)", 6.50, 25},
-        		{"Lomo de Cerdo (1kg)", 22.99, 25},
-        		{"Costillas de Res (1kg)", 19.99, 25},
-        		{"Picana de Pollo (1kg)", 11.99, 25},
-        		{"Chuletas de Cordero (1kg)", 28.99, 25}
-    		},
-    		10
-        },
-        {
-    		"LACTEOS",
-    		{
-    		    {"Leche Entera (1Lt)", 5.99, 50},
-     		    {"Queso Parmesano (200g)", 8.50, 50},
-      		  	{"Mantequilla (250g)", 4.99, 50},
-      		    {"Yogur Natural (500g)", 3.50, 50},
-      			{"Crema de Leche (200ml)", 3.99, 50},
-      			{"Leche Condensada (395g)", 5.25, 50},
-      			{"Queso Mozzarella (400g)", 7.99, 50},
-      			{"Yogur de Frutas (150g)", 1.75, 50},
-      			{"Helado de Vainilla (1Lt)", 10.99, 50},
-      			{"Leche Descremada (1Lt)", 5.99, 50}
-    		},
-    		10
-		},
-		{
-    		"LICORES",
-    		{
-     			{"Pisco (750ml)", 35.99, 50},
-        		{"Vodka (750ml)", 29.99, 50},
-        		{"Ron Añejo (750ml)", 27.50, 50},
-        		{"Whisky Escocés (750ml)", 49, 50},
-        		{"Tequila (750ml)", 45, 50},
-        		{"Ginebra (750ml)", 38, 50},
-       			{"Vino Tinto (750ml)", 50, 50},
-        		{"Champan (750ml)", 42.50, 50},
-        		{"Cerveza (500ml)", 8, 50},
-        		{"Licor de Cafe (500ml)", 15.99, 50}
-    		},
-   		 	10
-		},
-		{
-    		"PRODUCTOS DE LIMPIEZA",
-    		{
-        		{"Detergente (1L)", 10.99, 50},
-        		{"Cloro (1L)", 7.50, 40},
-        		{"Limpiavidrios (500ml)", 9, 50},
-        		{"Desinfectante (500ml)", 10, 50},
-        		{"Jabon en Polvo (1kg)", 12.50, 50},
-        		{"Suavizante de Telas (1L)", 16, 50},
-        		{"Lavaplatos (500ml)", 8.5, 50},
-        		{"Esponjas (Pack de 3)", 5.50, 50},
-        		{"Desodorante de Ambientes (250ml)", 7, 50},
-        		{"Papel Higienico (Pack de 4 rollos)", 8.50, 50}
-    		},
-    		10
-		},
-		{
-    		"HELADOS",
-    		{
-        		{"Helado de Vainilla (500ml)", 12.90, 50},
-        		{"Helado de Chocolate (500ml)", 12.90, 50},
-        		{"Helado de Fresa (500ml)", 12.90, 15},
-        		{"Helado de Cookies and Cream (500ml)", 14.90, 50},
-        		{"Helado de Mango (500ml)", 13.5, 50},
-        		{"Helado de Menta (500ml)", 13.5, 50},
-        		{"Helado de Dulce de Leche (500ml)", 15, 50},
-        		{"Helado de Nuez (500ml)", 13.99, 15},
-        		{"Helado de Fudge Brownie (500ml)", 16, 50},
-        		{"Helado de Stracciatella (500ml)", 14, 50}
-    		},
-    		10
-		},
-		{
-    		"CUIDADO PERSONAL",
-    		{
-        		{"Shampoo (500ml)", 15.99, 50},
-        		{"Acondicionador (500ml)", 15.99, 50},
-        		{"Jabon de Baño (Pack de 3)", 9.99, 50},
-        		{"Desodorante (50ml)", 12.99,50},
-        		{"Crema Hidratante (200ml)", 19.99, 50},
-        		{"Cepillo de Dientes", 4.99, 50},
-        		{"Pasta Dental (100g)", 7.99, 50},
-        		{"Cortauñas", 3.99, 35},
-        		{"Locion Corporal (250ml)", 16.99, 50},
-        		{"Protector Solar (SPF 50)", 24.99, 50}
-    		},
-    		10
-		},
-		
-    };
-    cout<<"               ";
-	cout<< "*********************" << endl;
-	  cout<<"               ";
-    cout<< "*                                                         *" << endl;
-      cout<<"               ";
-    cout<< "*        BIENVENIDO A NUESTRA TIENDA VIRTUAL INNOU        *" << endl;
-      cout<<"               ";
-    cout<< "*                                                         *" << endl;
-      cout<<"               ";
-    cout<< "*********************" << endl;
-    mostrarListaCategorias(categorias, MAX_CATEGORIAS);
-    guardarCategorias(categorias, MAX_CATEGORIAS);
-    int eleccionCategoria = SeleccionCategoria(MAX_CATEGORIAS);
-    system("CLS");
-    procesarSeleccion(categorias, eleccionCategoria);
-    getch();
+            cout << "El pago es insuficiente. Por favor, ingrese un monto igual o mayor al total." << endl;
+        }
+    } while (pago < carrito[numProductosCarrito].total);
+
+    double cambio = pago - carrito[numProductosCarrito].total;
+    cout << "Pago recibido: $" << pago << endl;
+    cout << "Cambio: $" << cambio << endl;
+
+    cout << "------------------------------------" << endl;
 }
