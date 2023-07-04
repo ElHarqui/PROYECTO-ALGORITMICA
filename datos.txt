@@ -2,7 +2,7 @@ ALIMENTOS BASICOS
 10
 Arroz(1kg)	
 5.5
-36
+35
 Leche(1Lt)	
 20.5
 49

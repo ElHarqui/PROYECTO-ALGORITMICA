@@ -592,6 +592,17 @@ void mostrarResumen(Producto carrito[], int& numProductosCarrito)
     system("pause");
     system("cls");
     Boleta(carrito,numProductosCarrito,usuario,num_usu,cambio);
+    system("pause");
+    system("cls");
+    cout<<"\n\tMENU 3\n1)Cerra Sesion\n\n0)Salir"<<endl;
+    int usu1;
+    cin>>usu1;
+    if (usu1 == 1 ){
+    	system("cls");
+    	Menu();
+	}else{
+		exit(1);
+	}
 }
 void Boleta(Producto carrito[],int numProductosCarrito,Usuarios usuario[],int num_usu, double cambio){
 	cout << "\n===============================" << endl;
