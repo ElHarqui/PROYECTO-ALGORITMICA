@@ -192,7 +192,7 @@ void menu2(int num_usu)
 {
 	int option;
 	cout << "\n--- Menu 2 ---\n";
-    cout << "1. Iniciar tienda\n2. Configuracion\n\n0. Cerrar sesion"<<endl;
+    cout << "1. Iniciar tienda\n\n0. Cerrar sesion"<<endl;
     cout << "-> ";
     cin >> option;
 	system("CLS");
@@ -202,9 +202,6 @@ void menu2(int num_usu)
         system("CLS");
         // Lógica para iniciar la tienda
         tiendausuario();
-    } 
-	else if (option == 2) {
-        menuDolar();
     } else if (option == 0) {
     	system("CLS");
         Menu(); // Cierra sesión
