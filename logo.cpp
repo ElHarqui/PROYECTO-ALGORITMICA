@@ -49,7 +49,7 @@ int matriz[32][120]=
     SetConsoleTextAttribute (hConsole, 6 );
     for ( int i = 0 ; i < 32 ; i++)
     {
-        for ( int j = 0 ; j < 120 ; j++)
+        for ( int j = 0 ; j < 118 ; j++)
         {
             if (matriz[i][j]== 1 )
             {
@@ -58,7 +58,7 @@ int matriz[32][120]=
                 cout<<( char ) 219  ;
             } else  if (matriz[i][j]== 2 )
             {
-                SetConsoleTextAttribute (hConsole, 3 );
+                SetConsoleTextAttribute (hConsole, 9 );
                 cout <<( char ) 219 ;
             } else  if (matriz[i][j]== 3 ){
                 SetConsoleTextAttribute (hConsole, 6 );
