@@ -3,15 +3,17 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
+#include "categorias.cpp"
 using namespace std;
-struct Producto {
-    string nombre;
-    float precio;
-    int cantidad;
-};
 
-void imprimirListaProductos(const std::vector<Producto>& listaProductos) {
-    for (vector<Producto>::const_iterator it = listaProductos.begin(); it != listaProductos.end(); ++it) {
+int numProductosCarrito1 = 0;
+
+
+
+void imprimirListaProductos(const std::vector<Producto>& listaProductos) 
+{
+    for (vector<Producto>::const_iterator it = listaProductos.begin(); it != listaProductos.end(); ++it)
+	{
         cout << "Nombre: " << it->nombre << endl;
         cout << "Precio: " << it->precio << endl;
         cout << "Cantidad: " << it->cantidad << endl;
@@ -19,9 +21,10 @@ void imprimirListaProductos(const std::vector<Producto>& listaProductos) {
     }
 }
 
-int main() {
+int main() 
+{
     ifstream archivo;
-    archivo.open("lista_productos.txt",ios::in);
+    archivo.open("datos.txt",ios::in);
     
     vector<Producto> listaProductos;
     if (archivo.is_open()) {
@@ -53,9 +56,7 @@ int main() {
         cout << "No se pudo abrir el archivo." << std::endl;
         return 1;
     }
-
     imprimirListaProductos(listaProductos);
-
     return 0;
 }
 

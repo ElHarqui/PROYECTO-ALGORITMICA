@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-//#include "visualizar.cpp"
+//#include "usuarios.cpp"
 using namespace std;
 
 //ESTRUCTURAS
@@ -42,17 +42,15 @@ void mostrarCategorias(Categoria* categorias, int numCategorias);
 void mostrarProductos(Categoria& categoria);
 void agregarAlCarrito(Producto carrito[], int& numProductosCarrito,Producto producto, int cantidad);
 void mostrarCarrito(Producto carrito[], int& numProductosCarrito);
-void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito ,Producto carrito[]);//!2-AQUI SE DECLARO PRODUCTO CARRITO Y LO VOLVI  GLOBAL
+void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito ,Producto carrito[]);
 void tiendausuario();
-//joss-------------------------
 void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Categoria categorias[], int numCategorias);
-void mostrarResumen(Producto carrito[], int& numProductosCarrito ); //!FUNCION NO RECONOCIDA (CarritoItem no existe)
+void mostrarResumen(Producto carrito[], int& numProductosCarrito );
 
-int numProductosCarrito = 0; //!2-AQUI LO DECLARE
-
-
-
-
+int numProductosCarrito = 0;
+extern int num_usu;
+//extern struct Usuarios usuario[100];
+//extern Usuarios usuario;
 //SUBPROGRMAS
 void cargarDatos(Categoria categorias[], int& numCategorias)
 {
@@ -84,7 +82,6 @@ void cargarDatos(Categoria categorias[], int& numCategorias)
         cout << "No se pudo abrir el archivo." << endl;
     }
 }
-
 
 void guardarDatos(Categoria categorias[], int numCategorias)
 {
@@ -157,10 +154,9 @@ void mostrarCarrito(Producto carrito[], int& numProductosCarrito)
     cout << "-----------------------------" << endl;
 }
 
-
 void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito,Producto carrito[])
 {
-    //Producto carrito[100]; // Arreglo para almacenar los productos comprados
+
     numProductosCarrito = 0;
     double subtotal = 0.0;
     char opcion;
@@ -259,9 +255,6 @@ void tiendausuario()
 	agregarQuitarProductos(carrito, numProductosCarrito, categorias, numCategorias);
     mostrarResumen(carrito,numProductosCarrito);
 }
-/////////////////////////////////////////////////////
-///////////////////JOSS/////////////////////////
-//////////////////////////////////////////////////
 
 void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Categoria categorias[], int numCategorias)
 {
@@ -345,6 +338,7 @@ void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Catego
         cout << "Opcion invalida. Por favor intente de nuevo." << endl;
     }
 }
+
 void mostrarResumen(Producto carrito[], int& numProductosCarrito)
 {
     cout << "--------RESUMEN DE LA COMPRA--------" << endl;
@@ -374,4 +368,7 @@ void mostrarResumen(Producto carrito[], int& numProductosCarrito)
     cout << "Cambio: $" << cambio << endl;
 
     cout << "------------------------------------" << endl;
+}
+void Boleta(Producto carrito,Usuarios usuario,int usunum = num_usu){
+	
 }
