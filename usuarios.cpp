@@ -502,7 +502,7 @@ void tiendausuario()
 
 void agregarQuitarProductos(Producto carrito[], int &numProductosCarrito, Categoria categorias[], int numCategorias)
 {
-    cout << "1. Quitar producto" << endl;
+    cout << "1. Eliminar productos" << endl;
     cout << "2. Mostrar contenido del carrito" << endl;
     cout << "Ingrese una opcion: ";
     int opcion;
