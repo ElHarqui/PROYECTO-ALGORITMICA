@@ -10,7 +10,8 @@ struct Producto
     string nombre;
     double precio;
     int stock;
-    int cantidad; // Nueva propiedad para almacenar la cantidad comprada
+    int cantidad;
+    double total; // Nueva propiedad para almacenar la cantidad comprada
 }carrito[100];
 
 struct Categoria
@@ -35,7 +36,7 @@ struct Resumen
 } carrito1;
 
 //PROTOTIPOS
-void cargarDatos(Categoria categorias[], int numCategorias);
+void cargarDatos(Categoria categorias, int& numCategorias);
 void guardarDatos(Categoria categorias[], int numCategorias);
 void mostrarCategorias(Categoria* categorias, int numCategorias);
 void mostrarProductos(Categoria& categoria);
@@ -44,8 +45,8 @@ void mostrarCarrito(Producto carrito[], int& numProductosCarrito);
 void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito ,Producto carrito[]);//!2-AQUI SE DECLARO PRODUCTO CARRITO Y LO VOLVI  GLOBAL
 void tiendausuario();
 //joss-------------------------
-void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito);
-void mostrarResumen(Producto carrito[], int& numProductosCarrito); //!FUNCION NO RECONOCIDA (CarritoItem no existe)
+void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Categoria categorias[], int numCategorias);
+void mostrarResumen(Producto carrito[], int& numProductosCarrito ); //!FUNCION NO RECONOCIDA (CarritoItem no existe)
 
 int numProductosCarrito = 0; //!2-AQUI LO DECLARE
 
@@ -53,14 +54,12 @@ int numProductosCarrito = 0; //!2-AQUI LO DECLARE
 
 
 //SUBPROGRMAS
-void cargarDatos(Categoria categorias[], int numCategorias)
+void cargarDatos(Categoria categorias[], int& numCategorias)
 {
     ifstream archivo("datos.txt"); // Nombre del archivo con los datos
-
+	numCategorias = 0;
     if (archivo)
     {
-        numCategorias = 0;
-
         string linea;
         while (getline(archivo, linea)) //itera sobre las líneas del archivo para obtener la información
         {
@@ -93,7 +92,7 @@ void guardarDatos(Categoria categorias[], int numCategorias)
 
     if (archivo)
     {
-        for (int i = 0; i < numCategorias; i++)//Itera sobre las categorías y sus productos
+        for (int i = 0; i < numCategorias; i++)//Itera sobre las categor?as y sus productos
         {
             archivo << categorias[i].nombre << endl;
             archivo << categorias[i].numProductos << endl;
@@ -158,12 +157,12 @@ void mostrarCarrito(Producto carrito[], int& numProductosCarrito)
     cout << "-----------------------------" << endl;
 }
 
+
 void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCarrito,Producto carrito[])
 {
     //Producto carrito[100]; // Arreglo para almacenar los productos comprados
     numProductosCarrito = 0;
     double subtotal = 0.0;
-    double total = 0.0;
     char opcion;
 
     do
@@ -179,14 +178,14 @@ void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCa
 		cout << "Selecciona una categoria: ";
         cin >> categoriaSeleccionada;
 
-        // Verificar si el número de categoría es válido
+        // Verificar si el n?mero de categor?a es v?lido
         while(categoriaSeleccionada < 1 || categoriaSeleccionada > numCategorias)
         {
             cout << "Ha excedido el limite de categorias. Ingrese nuevamente: ";
             cin >> categoriaSeleccionada;
         }
 
-        // Obtener la categoría seleccionada
+        // Obtener la categor?a seleccionada
         Categoria& categoria = categorias[categoriaSeleccionada - 1];
 		system("cls");	
         mostrarProductos(categoria);
@@ -232,133 +231,147 @@ void realizarVenta(Categoria categorias[], int numCategorias,int& numProductosCa
     } while (opcion == 's' || opcion == 'S');
 
     // Calcular el total
-    total = subtotal;
+    carrito[numProductosCarrito].total = subtotal;
 
     // Mostrar el carrito y los totales
     mostrarCarrito(carrito, numProductosCarrito);
 
     cout << "Subtotal: " << subtotal << endl;
-    cout << "Total: " << total << endl;
+    cout << "Total: " << carrito[numProductosCarrito].total << endl;
 }
 void tiendausuario()
 {
 	cout<<"               ";
-		cout<< "***********************************************************" << endl;
-		cout<<"               ";
-    	cout<< "*                                                         *" << endl;
-    	cout<<"               ";
-    	cout<< "*        BIENVENIDO A NUESTRA TIENDA VIRTUAL INNOU        *" << endl;
-   		cout<<"               ";
-    	cout<< "*                                                         *" << endl;
-      	cout<<"               ";
-    	cout<< "***********************************************************" << endl;
+	cout<< "***********************************************************" << endl;
+	cout<<"               ";
+    cout<< "*                                                         *" << endl;
+    cout<<"               ";
+    cout<< "*        BIENVENIDO A NUESTRA TIENDA VIRTUAL INNOU        *" << endl;
+   	cout<<"               ";
+    cout<< "*                                                         *" << endl;
+    cout<<"               ";
+    cout<< "***********************************************************" << endl;   
 	Categoria categorias[100];
     int numCategorias = 0;
     cargarDatos(categorias, numCategorias);
     realizarVenta(categorias, numCategorias,numProductosCarrito,carrito);
     guardarDatos(categorias, numCategorias);
-	//agregarQuitarProductos();
-    //mostrarResumen(item, total);
+	agregarQuitarProductos(carrito, numProductosCarrito, categorias, numCategorias);
+    mostrarResumen(carrito,numProductosCarrito);
 }
 /////////////////////////////////////////////////////
 ///////////////////JOSS/////////////////////////
 //////////////////////////////////////////////////
 
-void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito)
+void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Categoria categorias[], int numCategorias)
 {
-    cout << "¿Desea agregar o quitar productos ? // si no desea ninguno(continuar) ";
-    cin.ignore(); // Ignorar el salto de línea anterior
-    getline(cin, producto.accion);
+    cout << "1. Agregar producto" << endl;
+    cout << "2. Quitar producto" << endl;
+    cout << "3. Mostrar contenido del carrito" << endl;
+    cout << "Ingrese una opcion: ";
+    int opcion;
+    cin >> opcion;
 
-    if (producto.accion == "agregar")
+    if (opcion == 1)
     {
+        string producto;
         cout << "Ingrese el nombre del producto: ";
-        cin >> producto.nombre; //agregar los nuevos productos que desee el cliente
+        cin.ignore();
+        getline(cin, producto);
 
+        int cantidad;
         cout << "Ingrese la cantidad: ";
-        cin >> producto.cantidad;//la cantidad del nuevo producto que desee
+        cin >> cantidad;
 
-        producto.stock += producto.cantidad;
-
-        cout << "Se agregaron " << producto.cantidad << " unidades del producto " << producto.nombre << " al carrito." << endl;
-    }
-    else if (producto.accion == "quitar")
-    {
-        cout << "Ingrese el nombre del producto: ";
-        cin >> producto.nombre; //quitar el producto que desee el cliente
-
-        cout << "Ingrese la cantidad: ";
-        cin >> producto.cantidad;//quitar la cantidad de dicho producto 
-
-        if (producto.cantidad <= producto.stock)
+        bool productoEncontrado = false;
+        for (int i = 0; i < numCategorias; i++)
         {
-            producto.stock -= producto.cantidad;
-            cout << "Se quitaron " << producto.cantidad << " unidades del producto " << producto.nombre << " del carrito." << endl;
+            for (int j = 0; j < categorias[i].numProductos; j++)
+            {
+                if (categorias[i].productos[j].nombre == producto)
+                {
+                    agregarAlCarrito(carrito, numProductosCarrito, categorias[i].productos[j], cantidad);
+                    productoEncontrado = true;
+                    break;
+                }
+            }
+            if (productoEncontrado)
+            {
+                break;
+            }
+        }
+
+        if (!productoEncontrado)
+        {
+            cout << "Producto no encontrado." << endl;
+        }
+    }
+    else if (opcion == 2)
+    {
+        if (numProductosCarrito > 0)
+        {
+            mostrarCarrito(carrito, numProductosCarrito);
+            cout << "Ingrese el numero del producto a quitar: ";
+            int numero;
+            cin >> numero;
+
+            if (numero >= 1 && numero <= numProductosCarrito)
+            {
+                cout << "Producto quitado: " << carrito[numero - 1].nombre << endl;
+                carrito[numProductosCarrito].total -= carrito[numero - 1].precio * carrito[numero - 1].cantidad;
+                for (int i = numero - 1; i < numProductosCarrito - 1; i++)
+                {
+                    carrito[i] = carrito[i + 1];
+                }
+                numProductosCarrito--;
+            }
+            else
+            {
+                cout << "Numero de producto invalido." << endl;
+            }
         }
         else
         {
-            cout << "No se pueden quitar " << producto.cantidad << " unidades del producto " << producto.nombre << " del carrito. Stock insuficiente." << endl;
+            cout << "No hay productos en el carrito." << endl;
         }
-    }else if (producto.accion == "continuar")
+    }
+    else if (opcion == 3)
     {
-        cout<< "Continuamos . . .";
-	}
+        // Mostrar contenido del carrito
+        mostrarCarrito(carrito, numProductosCarrito);
+    }
     else
     {
-        cout << "Opción inválida." << endl;
+        cout << "Opcion invalida. Por favor intente de nuevo." << endl;
     }
 }
-
 void mostrarResumen(Producto carrito[], int& numProductosCarrito)
 {
+    cout << "--------RESUMEN DE LA COMPRA--------" << endl;
+    cout << "Productos comprados:" << endl;
 
-    int menu ,final;
-    system("cls");
-    cout << "\n ";
-    cout << "Ingrese su descuento: $";
-    cin >> carrito1.descuento; // el descuento que tiene el cliente
-
-    final = /*Total(CAMBIAR ESTA VARIABLE*/ - carrito1.descuento; //El monto total - descuento para ver el pago en total que hara
-
-    cout << "¿Le alcanza el monto para pagar? 1. SI // 2. NO ";
-    cin >> menu;
-
-    if (menu == 1)
+    for (int i = 0; i < numProductosCarrito; i++)  //recorre los productos en el carrito
     {
-        cout << "\n";
-		cout << "Resumen del Carrito" << endl;
-        cout << endl;
-        cout << "Carrito: " << ""/*item.nombre  CAMBIAR ESTA VARIABLE*/ << endl;
-        cout << endl;
-        cout << "La cantidad de productos es : " << ""/*item.cantidad */<< endl;// no se Guardo 
-        cout << endl;
-        cout << "Subtotal: S/." << ""/*Total*/ << endl;
-        cout << endl;
-        cout << "Descuento: S/." << carrito1.descuento << endl;// no se Guardo 
-        cout << endl;
-        cout << "Total a pagar: S/." << final<< endl;
-        cout << endl;
-
-        float pago, cambio;
-        cout << "Ingrese el monto con el que pagará: S/.";
-        cin >> pago; //monto con el que pagara el cliente
-
-        if (pago >= final)
-        {
-            cambio = pago - final;
-            cout << "Pago exitoso. Su cambio es de S/." << cambio << endl; //vuelto
-        }
-        else
-        {
-            cout << "Monto insuficiente. Por favor, ingrese un monto igual o mayor al total." << endl;
-        }
+        cout << "- " << carrito[i].nombre << " x " << carrito[i].cantidad << endl;
     }
-    else
+    cout << "Subtotal: $" << carrito[numProductosCarrito].total << endl;
+
+    // Proceso de cobro al cliente
+    double pago;
+    do
     {
-        cout << "No alcanza el monto para pagar." << endl;
-        cout << "Hasta la próxima, sus productos quedarán guardados en el carrito." << endl;
-    }
+        cout << "Ingrese la cantidad a pagar: $";
+        cin >> pago;
+
+        if (pago < carrito[numProductosCarrito].total)
+        {
+            cout << "El pago es insuficiente. Por favor, ingrese un monto igual o mayor al total." << endl;
+        }
+    } while (pago < carrito[numProductosCarrito].total);
+
+    double cambio = pago - carrito[numProductosCarrito].total;
+    cout << "Pago recibido: $" << pago << endl;
+    cout << "Cambio: $" << cambio << endl;
+
+    cout << "------------------------------------" << endl;
 }
-
-
-
