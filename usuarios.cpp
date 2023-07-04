@@ -64,7 +64,7 @@ void tiendausuario();
 void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Categoria categorias[], int numCategorias);
 void mostrarResumen(Producto carrito[], int& numProductosCarrito );
 //PROTOTIPOS BOLETA
-void Boleta(Usuarios usuario[],int usu_num);
+void Boleta(Producto carrito[],int numProductosCarrito, Usuarios usuario[], int num_usu, double cambio);
 
 int num_usu;
 int numProductosCarrito = 0;
@@ -586,7 +586,7 @@ void mostrarResumen(Producto carrito[], int& numProductosCarrito)
             cout << "El pago es insuficiente. Por favor, ingrese un monto igual o mayor al total." << endl;
         }
     } while (pago < carrito[numProductosCarrito].total);
-
+	cout<<numProductosCarrito<<endl;
     double cambio = pago - carrito[numProductosCarrito].total;
     cout << "Pago recibido: $" << pago << endl;
     cout << "Cambio: $" << cambio << endl;
@@ -594,7 +594,7 @@ void mostrarResumen(Producto carrito[], int& numProductosCarrito)
     cout << "------------------------------------" << endl;
     system("pause");
     system("cls");
-    Boleta(carrito,numProductosCarrito,usuario,num_usu);
+    Boleta(carrito,numProductosCarrito,usuario,num_usu,cambio);
 }
 void Boleta(Producto carrito[],int numProductosCarrito,Usuarios usuario[],int num_usu, double cambio){
 	cout << "\n===============================" << endl;
@@ -602,14 +602,16 @@ void Boleta(Producto carrito[],int numProductosCarrito,Usuarios usuario[],int nu
     cout << "===============================" << endl;
     cout << "Usuario: " << usuario[num_usu].nombre << endl;
     cout << "Vuelto: $" << cambio << endl;
+    cout << "-----------------------------" << endl;
+    
     cout << "------------------------------------" << endl;
     cout << "       DETALLES DE LOS PRODUCTOS     " << endl;
     cout << "------------------------------------" << endl;
     // Mostrar los detalles de los productos
-    for (int i = 0 ; i == numProductosCarrito ; i++) {
-        cout << "Producto: " << carrito[numProductosCarrito].nombre << endl;
-        cout << "Cantidad: " << carrito[numProductosCarrito].cantidad << endl;
-        cout << "Precio:   " << carrito[numProductosCarrito].precio << endl;
-        cout << "------------------------------------" << endl;
-	
+    for (int i = 0; i < numProductosCarrito; i++)
+    {
+        cout << "Producto: " << carrito[i].nombre << endl;
+        cout << "Cantidad: " << carrito[i].cantidad << endl;
+        cout << "Precio: " << carrito[i].precio << endl;
+    }
 }
