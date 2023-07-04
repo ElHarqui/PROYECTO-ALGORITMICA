@@ -48,10 +48,10 @@ using namespace std;
 //PROTOTIPOS USUARIO
 static void CargarEstructuras(void) ;
 static void NuevoUsuario(void);
-static void LoginUsu(void);
-static void menu2();
-static void Menu();
-static void menuDolar();
+static void LoginUsu(int num_usu);
+static void menu2(int num_usu);
+static void Menu(void);
+static void menuDolar(void);
 //PROTOTIPOS TIENDA
 void cargarDatos(Categoria categorias, int& numCategorias);
 void guardarDatos(Categoria categorias[], int numCategorias);
@@ -64,7 +64,7 @@ void tiendausuario();
 void agregarQuitarProductos(Producto carrito[], int& numProductosCarrito, Categoria categorias[], int numCategorias);
 void mostrarResumen(Producto carrito[], int& numProductosCarrito );
 //PROTOTIPOS BOLETA
-void Boleta(Producto carrito[],Usuarios usuario[],int usunum);
+void Boleta(Usuarios usuario[],int usu_num);
 
 int num_usu;
 int numProductosCarrito = 0;
@@ -139,7 +139,7 @@ static void NuevoUsuario(void)
 	
 }
 
-static void LoginUsu(void)
+static void LoginUsu(int num_usu)
 {
 	
 	CargarEstructuras(num_usu);
@@ -165,7 +165,7 @@ static void LoginUsu(void)
 			}
 			else
 			{
-				menu2();
+				menu2(num_usu);
 				break;
 			}
 		}
@@ -184,10 +184,10 @@ static void LoginUsu(void)
 	{
 		system("pause");
 		system("CLS");
-		LoginUsu();
+		LoginUsu(num_usu);
 	}
 }
-void menu2()
+void menu2(int num_usu)
 {
 	int option;
 	cout << "\n--- Menu 2 ---\n";
@@ -210,7 +210,7 @@ void menu2()
     } else {
         cout << "\nOpción inválida.\n";
         system("pause");
-        menu2();
+        menu2(num_usu);
     }
 }
 void menuDolar()
@@ -232,7 +232,7 @@ void menuDolar()
         cout << "\nTipo de moneda cambiado a soles.\n";
     } else if (option == 0) {
         system("CLS");
-		menu2(); // Vuelve al menú principal
+		menu2(num_usu); // Vuelve al menú principal
     } else {
         cout << "\nOpción inválida.\n";
         system("pause");
@@ -259,7 +259,7 @@ void Menu()
 		case '2':
 			//USUARIO EXISTENTE
 			system("CLS");
-			LoginUsu();
+			LoginUsu(num_usu);
 			break;
 		case '0':
 			exit(1);
@@ -593,9 +593,9 @@ void mostrarResumen(Producto carrito[], int& numProductosCarrito)
     cout << "------------------------------------" << endl;
     system("pause");
     system("cls");
-    Boleta(carrito,usuario,num_usu);
+    Boleta(usuario,num_usu);
 }
-void Boleta(Producto carrito[],Usuarios usuario[],int usunum){
-	cout<<usuario[usunum].nombre<<endl;
+void Boleta(Usuarios usuario[],int num_usu){
+	cout<<usuario[num_usu].nombre<<endl;
 	
 }
