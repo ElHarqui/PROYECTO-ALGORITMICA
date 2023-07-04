@@ -613,5 +613,6 @@ void Boleta(Producto carrito[],int numProductosCarrito,Usuarios usuario[],int nu
         cout << "Producto: " << carrito[i].nombre << endl;
         cout << "Cantidad: " << carrito[i].cantidad << endl;
         cout << "Precio: " << carrito[i].precio << endl;
+    	cout << "-----------------------------" << endl;
     }
 }

@@ -2,7 +2,7 @@ ALIMENTOS BASICOS
 10
 Arroz(1kg)	
 5.5
-40
+36
 Leche(1Lt)	
 20.5
 49
@@ -66,7 +66,7 @@ VERDURAS
 10
 Zanahoria (1kg)	
 6.99
-25
+24
 Lechuga (unidad)	
 3.99
 25
