@@ -8,7 +8,7 @@ Leche(1Lt)
 49
 Aceite(1Lt)	
 10.5
-50
+48
 Pan(unidad)	
 0.5
 50
@@ -29,12 +29,12 @@ Sal(1kg)
 50
 Harina(1kg)	
 7.8
-50
+49
 FRUTAS
 10
 Manzana(1kg)	
 12.99
-25
+24
 Pera(1kg)	
 29.99
 22
@@ -107,7 +107,7 @@ Emoliente (500ml)
 50
 Cerveza Cusqueña (355ml)	
 4.5
-50
+48
 Pisco (750ml)	
 35.99
 10
@@ -258,7 +258,7 @@ HELADOS
 10
 Helado de Vainilla (500ml)	
 12.9
-50
+49
 Helado de Chocolate (500ml)	
 12.9
 50

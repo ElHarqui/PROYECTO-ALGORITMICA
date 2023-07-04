@@ -2,7 +2,7 @@
 #include <sstream>
 #include <fstream>
 #include <string.h>
-// #include "categorias.cpp"
+#include <windows.h>
 #include "logo.cpp"
 
 struct Usuarios
@@ -203,9 +203,18 @@ void menu2(int num_usu)
     system("CLS");
     if (option == 1)
     {
-        cout << "\nIniciando tienda...\n";
-        system("pause");
-        system("CLS");
+    	for (int j = 0 ; j< 8 ; j++){
+    		cout << "\nIniciando tienda.";
+    		Sleep(30);
+    		system("cls");
+			cout << "\nIniciando tienda..";
+			Sleep(30);
+			system("cls");
+			cout << "\nIniciando tienda...";
+			Sleep(30);
+			system("cls");
+		}
+   		
         // Lógica para iniciar la tienda
         tiendausuario();
     }
@@ -257,8 +266,6 @@ void menuDolar()
 }
 void Menu()
 {
-    logo();
-    // system("cls");
     /////MENU 1
     char SelecMenu1, la;
     cout << "\n--- Menu 1 ---\n1.- Crear Usuario\n2.- Iniciar sesion\n\n0.- Salir" << endl;
@@ -495,48 +502,13 @@ void tiendausuario()
 
 void agregarQuitarProductos(Producto carrito[], int &numProductosCarrito, Categoria categorias[], int numCategorias)
 {
-    cout << "1. Agregar producto" << endl;
-    cout << "2. Quitar producto" << endl;
-    cout << "3. Mostrar contenido del carrito" << endl;
+    cout << "1. Quitar producto" << endl;
+    cout << "2. Mostrar contenido del carrito" << endl;
     cout << "Ingrese una opcion: ";
     int opcion;
     cin >> opcion;
 
     if (opcion == 1)
-    {
-        string producto;
-        cout << "Ingrese el nombre del producto: ";
-        cin.ignore();
-        getline(cin, producto);
-
-        int cantidad;
-        cout << "Ingrese la cantidad: ";
-        cin >> cantidad;
-
-        bool productoEncontrado = false;
-        for (int i = 0; i < numCategorias; i++)
-        {
-            for (int j = 0; j < categorias[i].numProductos; j++)
-            {
-                if (categorias[i].productos[j].nombre == producto)
-                {
-                    agregarAlCarrito(carrito, numProductosCarrito, categorias[i].productos[j], cantidad);
-                    productoEncontrado = true;
-                    break;
-                }
-            }
-            if (productoEncontrado)
-            {
-                break;
-            }
-        }
-
-        if (!productoEncontrado)
-        {
-            cout << "Producto no encontrado." << endl;
-        }
-    }
-    else if (opcion == 2)
     {
         if (numProductosCarrito > 0)
         {
@@ -565,12 +537,12 @@ void agregarQuitarProductos(Producto carrito[], int &numProductosCarrito, Catego
             cout << "No hay productos en el carrito." << endl;
         }
     }
-    else if (opcion == 3)
+    else if (opcion == 2)
     {
         // Mostrar contenido del carrito
         mostrarCarrito(carrito, numProductosCarrito);
     }
-    else
+	else
     {
         cout << "Opcion invalida. Por favor intente de nuevo." << endl;
     }
@@ -599,7 +571,6 @@ void mostrarResumen(Producto carrito[], int &numProductosCarrito)
             cout << "El pago es insuficiente. Por favor, ingrese un monto igual o mayor al total." << endl;
         }
     } while (pago < carrito[numProductosCarrito].total);
-    cout << numProductosCarrito << endl;
     double cambio = pago - carrito[numProductosCarrito].total;
     cout << "Pago recibido: $" << pago << endl;
     cout << "Cambio: $" << cambio << endl;
@@ -625,6 +596,7 @@ void mostrarResumen(Producto carrito[], int &numProductosCarrito)
 }
 void Boleta(Producto carrito[], int numProductosCarrito, Usuarios usuario[], int num_usu, double cambio)
 {
+	system("cls");
     cout << "\n===============================" << endl;
     cout << "         BOLETA DE VENTA        " << endl;
     cout << "===============================" << endl;
