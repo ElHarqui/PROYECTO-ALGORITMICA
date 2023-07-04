@@ -48,7 +48,7 @@ using namespace std;
 //PROTOTIPOS USUARIO
 static void CargarEstructuras(void) ;
 static void NuevoUsuario(void);
-static void LoginUsu(int num_usu);
+static void LoginUsu(int &num_usu);
 static void menu2(int num_usu);
 static void Menu(void);
 static void menuDolar(void);
@@ -139,7 +139,7 @@ static void NuevoUsuario(void)
 	
 }
 
-static void LoginUsu(int num_usu)
+static void LoginUsu(int &num_usu)
 {
 	
 	CargarEstructuras(num_usu);
@@ -154,6 +154,7 @@ static void LoginUsu(int num_usu)
 		if (logusu == usuario[i].nombre && logcontra == usuario[i].contra)
 		{
 			cout<<"Inicio sesion correctamente"<<endl;
+			num_usu = i;
 			LogExist = 1;
 			system("pause");
 			system("CLS");
