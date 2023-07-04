@@ -597,4 +597,5 @@ void mostrarResumen(Producto carrito[], int& numProductosCarrito)
 }
 void Boleta(Producto carrito[],Usuarios usuario[],int usunum){
 	cout<<usuario[usunum].nombre<<endl;
+	
 }
