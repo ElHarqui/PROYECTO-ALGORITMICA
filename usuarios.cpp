@@ -594,9 +594,22 @@ void mostrarResumen(Producto carrito[], int& numProductosCarrito)
     cout << "------------------------------------" << endl;
     system("pause");
     system("cls");
-    Boleta(usuario,num_usu);
+    Boleta(carrito,numProductosCarrito,usuario,num_usu);
 }
-void Boleta(Usuarios usuario[],int num_usu){
-	cout<<usuario[num_usu].nombre<<endl;
+void Boleta(Producto carrito[],int numProductosCarrito,Usuarios usuario[],int num_usu, double cambio){
+	cout << "\n===============================" << endl;
+    cout << "         BOLETA DE VENTA        " << endl;
+    cout << "===============================" << endl;
+    cout << "Usuario: " << usuario[num_usu].nombre << endl;
+    cout << "Vuelto: $" << cambio << endl;
+    cout << "------------------------------------" << endl;
+    cout << "       DETALLES DE LOS PRODUCTOS     " << endl;
+    cout << "------------------------------------" << endl;
+    // Mostrar los detalles de los productos
+    for (int i = 0 ; i == numProductosCarrito ; i++) {
+        cout << "Producto: " << carrito[numProductosCarrito].nombre << endl;
+        cout << "Cantidad: " << carrito[numProductosCarrito].cantidad << endl;
+        cout << "Precio:   " << carrito[numProductosCarrito].precio << endl;
+        cout << "------------------------------------" << endl;
 	
 }
